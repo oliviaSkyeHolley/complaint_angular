@@ -1,0 +1,12 @@
+
+<div>
+  <h2>Investigation List</h2>
+  <ul>
+    <li *ngFor="let investigation of investigations">
+      <a [routerLink]="['/investigation/detail', investigation.entityId]">{{ investigation.label }}</a><br />
+    
+    </li>
+    
+  </ul>
+  <button (click)="addInvestigation()">Add Investigation</button>
+</div>

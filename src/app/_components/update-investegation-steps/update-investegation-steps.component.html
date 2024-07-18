@@ -1,0 +1,13 @@
+<p>update-investegation-steps works!</p>
+<div class="container" [style] = "{'padding': '250px'}">
+    <h2>Rearrange Questions</h2>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let question of investigationQuestions" class="example-box" cdkDrag (click)="openEditDialog(question)">
+          {{ question.description }}
+        </div>
+      </div>
+      
+  </div>
+
+
+  
