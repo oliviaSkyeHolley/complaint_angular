@@ -1,0 +1,30 @@
+
+<div>
+  <h2>Investigation Details</h2>
+  
+  <button (click)="addStep()">Add Step</button>
+  <button [routerLink]="['/investigation/detail/update', investigationId]">Edit Steps</button>
+  
+  <div class="container" [style] = "{'width': '50%', 'background-color': '#f5f5f5', 'margin-bottom': '10px', 'margin-left': '250px'}">
+<div *ngIf="investigationDetails" class="form-group">
+
+<div *ngFor="let question of investigationQuestions" [style]="{'padding':'30px'}">
+  <label for="question.id">{{question.description}}</label>
+  <input *ngIf="question.displayType === 'text'" type="text" class="form-control" required>
+  <select *ngIf="question.displayType === 'select'"class="form-control" id="power" required>
+    <option *ngFor="let option of question.options">{{option.optionText}}</option>
+  </select>
+  <div *ngIf="question.displayType === 'Radio'">
+    <div *ngFor="let option of question.choices">
+      <label>
+        <input type="radio" name="question_{{ option.id }}" [value]="option.description" required>
+        {{ option.description }}
+      </label>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+<!-- <pre>{{ investigationDetails | json }}</pre> -->

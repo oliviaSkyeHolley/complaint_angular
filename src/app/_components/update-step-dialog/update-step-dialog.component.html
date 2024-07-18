@@ -1,0 +1,23 @@
+
+<h1 mat-dialog-title>Edit Step</h1>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>{{data.question.description}}</mat-label>
+    <input matInput [(ngModel)]="data.question.description" />
+  </mat-form-field>
+
+  <div *ngIf="data.question.displayType === 'Radio'">
+    <mat-label>Choices:</mat-label>
+    <div *ngFor="let choice of data.question.choices">
+      <mat-radio-group [(ngModel)]="data.selectedChoice">
+        <mat-radio-button [value]="choice.label">{{ choice.label }} {{ choice.description }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="data">Save</button>
+</div>
