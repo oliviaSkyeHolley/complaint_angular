@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>Add Step</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+    <p>Description</p>
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Description" required>
+    </mat-form-field>
+    <p>Required</p>
+    <mat-form-field>
+        <mat-select formControlName="required" placeholder="Select Required Status">
+            <mat-option  [value]="1">Yes</mat-option>
+            <mat-option  [value]="0">No</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <p>Element Type</p>
+    <mat-form-field>
+      <mat-select formControlName="displayType" placeholder="Select Element Type">
+        <mat-option *ngFor="let type of displayType" [value]="type.value">{{ type.label }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <!-- radio options -->
+    <div *ngIf="form.get('displayType')?.value === 'radio' || form.get('displayType')?.value === 'radio&text' || form.get('displayType')?.value === 'checkbox&text' || form.get('displayType')?.value === 'checkbox'">
+      <p> Options:</p>
+      <div formArrayName="options">
+        <div *ngFor="let option of options.controls; let i = index">
+          <mat-form-field>
+            <input matInput placeholder="Option {{ i + 1 }}">
+            <button mat-icon-button type="button" (click)="removeOption(i)">
+              <mat-icon >delete</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+        <button mat-button type="button" (click)="addOption()">Add Option</button>
+      </div>
+
+        <!--Condtion-->
+        <p>Logic:</p>
+        <div  formArrayName="conditions">
+          <div *ngFor="let condition of conditions.controls; let i = index">
+            <mat-form-field>
+              <p>Condition {{ i + 1 }}</p>
+              <mat-select  placeholder="Select Step">
+                  <mat-option *ngFor="let step of data" [value]="step.id">{{ step.description }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <p>Value is</p>
+                <mat-select  placeholder="Select Value">
+                  <div *ngFor="let step of data">
+                  <mat-option *ngFor="let choice of step.choices" [value]="choice.id">{{ choice.description }}</mat-option>
+                </div>
+              </mat-select>
+            <button mat-icon-button type="button" (click)="removeCondition(i)">
+              <mat-icon fontIcon="delete"></mat-icon>
+            </button>
+          </mat-form-field>
+        
+        </div>
+        <button mat-button type="button" (click)="addCondition()">Add Condition</button>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button (click)="close()">Close</button>
+    <button mat-button color="primary" type="submit" [disabled]="form.invalid">Create</button>
+  </mat-dialog-actions>
+</form>

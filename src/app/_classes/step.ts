@@ -1,3 +1,4 @@
+import { Condition } from "./condition";
 import {StepChoice} from "./step-choice";
 
 export class Step {
@@ -5,60 +6,52 @@ export class Step {
 
 
 
-  constructor(code: string, id: string, stepVid: string, stepLabel: string, stepCode: string, displayType: string, delta: string, required: string, description: string, type: number, stepUuid: string, answer: string, choices: StepChoice[]) {
-    this.code = code;
+  constructor(id: string, stepUuid: string, displayType: string,  required: string, description: string, choices: StepChoice[], conditions: Condition[]) {
+
     this.id = id;
-    this.stepVid = stepVid;
-    this.stepLabel = stepLabel;
-    this.stepCode = stepCode;
-    this.displayType = displayType;
-    this.delta = delta;
-    this.required = required;
-    this.description = description;
-    this.type = type;
     this.stepUuid = stepUuid;
-    this.answer = answer;
+    this.description = description;
+    this.displayType = displayType;
+    this.required = required;
     this.choices = choices;
+    this.conditions = conditions;
   }
 
 
+ 
   /**
-   * The code is used to form the HL7 message, it is not displayed to users.
+   * id of a step
    */
-  code: string;
-
   id: string;
-  stepVid: string;
-  stepLabel: string;
-  stepCode: string;
-  displayType: string;
-  delta: string;
-  required: string;
 
   /**
-   * The description is shown to users as the step name.
-   */
-  description: string;
-
-  /**
-   * Type == 4 means this step has no choices, Type == 5 means that it does.
-   */
-  type: number;
-
-  /**
-   * The UUID assigned to this step by Drupal.
+   * Unique id for each step
    */
   stepUuid: string;
 
   /**
-   * The answer is populated by choice.label for step that have choices.
-   * The answer is populated by text entry if the step does not have choices.
+   * The description will be displayed to the user as question labels
    */
-  answer: string;
+  description: string;
+
+  /**
+   * The type of choice i.e: radiobutton/checkbox
+   */
+  displayType: string;
+
+  /**
+   * Determines a step is required to complete the investigation or not (0 - no, 1 -yes)
+   */
+  required: string;
 
   /**
    * An array of step choices.
    * If an step has no choices, it will still be populated by one step choice. It's not used.
    */
   choices: StepChoice[];
+
+  /**
+   * An array of conditions which includes the skip logic conditions.
+   */
+  conditions: Condition[];
 }

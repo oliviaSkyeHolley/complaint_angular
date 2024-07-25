@@ -1,0 +1,62 @@
+<!-- <p>update-investegation-steps works!</p>
+<div class="container" [style] = "{'padding': '250px'}">
+    <h2>Rearrange Questions</h2>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let question of investigationSteps" class="example-box" cdkDrag (click)="openEditDialog(question)">
+          {{ question.description }}
+        </div>
+      </div>
+      
+  </div> -->
+  <div class="top-container">
+    <h2>{{investigationDetails.label}}</h2>
+    <h3>Edit Investigation Details</h3>
+
+    <button [routerLink]="['/investigation/detail', investigationId]">Go Back</button>
+  
+  </div>
+
+  <mat-table #table [dataSource]="investigationSteps" class="mat-elevation-z8" cdkDropList 
+  cdkDropListData="dataSource">
+
+    <ng-container matColumnDef="id" sticky>
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let step">
+        <mat-icon class="example-drag-cursor">reorder</mat-icon>
+        <span>{{step.id}}</span></mat-cell>
+    </ng-container>
+  
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+      <mat-cell *matCellDef="let step">{{step.description}}</mat-cell>
+    </ng-container>
+  
+    <!-- Type Status Column -->
+    <ng-container matColumnDef="displayType">
+      <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+      <mat-cell *matCellDef="let step"> {{step.displayType}} </mat-cell>
+    </ng-container>
+  
+    <!-- Required Column -->
+    <ng-container matColumnDef="required">
+      <mat-header-cell *matHeaderCellDef> Required </mat-header-cell>
+      <mat-cell *matCellDef="let step"> 
+        <span *ngIf = "step.required === '1'">Yes</span>
+        <span *ngIf = "step.required === '0'">No</span>
+      </mat-cell>
+    </ng-container>
+  
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+  
+      <mat-cell *matCellDef="let element">
+        <button >Delete</button>
+        <button>Edit</button>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row"></mat-row>
+  </mat-table>

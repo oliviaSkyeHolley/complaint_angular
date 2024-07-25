@@ -1,31 +1,42 @@
 /**
  * Stores the data of a Investigation retrieved from the list of Investigations
- * Maintains the format defined from Drupal
  */
 export class ListOfInvestigation {
   constructor(
     label: string,
     entityId: number,
-    revisionId: number,
     revisionCreationTime: string,
-    revisionStatus: string
+    revisionStatus: string,
+    createdTime:string
   ) {
     this.label = label;
     this.entityId = entityId;
-    this.revisionId = revisionId;
     this.revisionCreationTime = revisionCreationTime;
     this.revisionStatus = revisionStatus;
+    this.createdTime = createdTime;
   }
   /**
-   * Tabview's label
+   * The title of an investigation
    */
   label: string;
+
   /**
-   * The entity id of a tab view
-   * Uniquely identifies the tabview drupal
+   * Reprents the id given by drupal for the investigation
    */
   entityId: number;
-  revisionId: number;
+
+  /**
+   * 
+   */
   revisionCreationTime: string;
+
+  /**
+   * Determines the staus of an investigation (i.e, draft, archived, published)
+   */
   revisionStatus: string;
+
+  /**
+   * Time when the investigation  created
+   */
+  createdTime:string;
 }
