@@ -20,19 +20,27 @@ export class InvestigationService {
   }
   addInvestigation(data: any): Observable<any> {
     const headers = this.authService.getHeaders();
-    return this.http.post<any>(environment.addInvestigationListURL, data, { headers });
+    return this.http.post<Investigation>(environment.addInvestigationListURL, data, { headers });
   }
-
+  deleteInvestigation(investigationId:string): Observable<any>{
+   
+    const headers =this.authService.getHeaders();
+    return this.http.delete<Investigation>(`${environment.deleteInvestigationURL}${investigationId}`,{headers});
+  }
 
   getInvestigation(investigationId: string, headers: HttpHeaders): Observable<Investigation> {
+
     return this.http.get<Investigation>(`${environment.getInvestigationURL}${investigationId}?_format=json`, { headers });
   }
+
+
+
 
 
   //yet to implement
   addStepToInvestigation(investigationId: string, stepData: any): Observable<any> {
     const headers = this.authService.getHeaders();
-    return this.http.post<any>(`${environment.addStepURL}/${investigationId}`, stepData, { headers });
+    return this.http.patch<any>(`${environment.addStepURL}${investigationId}`, stepData, { headers });
   }
 
     

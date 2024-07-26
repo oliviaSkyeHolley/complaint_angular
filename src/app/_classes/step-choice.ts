@@ -5,59 +5,28 @@
  *  An step choice forms a single choice in an step.
  */
 export class StepChoice {
-  constructor(label: string, description: string, choiceUuid: string, id: string, choiceVid: string, choiceCode: string, delta: string, hiddenOnInvestigation: string) {
-    this.label = label;
-    this.description = description;
+  constructor( id: string, choiceUuid: string, description: string) {
     this.choiceUuid = choiceUuid;
     this.id = id;
-    this.choiceVid = choiceVid;
-    this.choiceCode = choiceCode;
-    this.delta = delta;
-    this.hiddenOnInvestigation = hiddenOnInvestigation;
+    this.description = description;
+
   }
 
-  /**
-   * The label is used as the result value in the HL7 message.
-   * It populates the step.value variable.
-   */
-  label: string;
-
-  /**
-   * The human readable description of the choice, this is displayed to users.
-   */
-  description: string;
-
-  /**
-   * The UUID assigned to this step choice by Drupal.
-   */
-  choiceUuid: string;
-
-  /**
-   * The below were added to facilitate teh form builder
-   */
 
   /**
    * The choice ID
    */
-  id: string;
+   id: string;
 
   /**
-   * In Drupal the revissions are kept, this is the Revision ID.
+   * The Unique Id for each choice.
    */
-  choiceVid: string;
+  choiceUuid: string;
 
   /**
-   * The MOSAIQ Choice Code
+   * The description of the choice.
    */
-  choiceCode: string;
+    description: string;
 
-  /**
-   *
-   */
-  delta: string;
 
-  /**
-   *
-   */
-  hiddenOnInvestigation: string;
 }
