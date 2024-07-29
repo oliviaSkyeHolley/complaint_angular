@@ -5,7 +5,7 @@ import { InvestigationListComponent } from './_components/investigation-list/inv
 import { InvestigationDetailsComponent } from './_components/investigation-details/investigation-details.component';
 import { UpdateInvestegationStepsComponent } from './_components/dialog-components/update-investegation-steps/update-investegation-steps.component';
 export const appRoutes: Routes = [
-  { path: '', redirectTo: '/investigation/list', pathMatch: 'full' },
+  //{ path: '', redirectTo: '/investigation/list', pathMatch: 'full' },
   { path: 'user/login', component: AuthenticateComponent },
   { path: 'investigation/list', component: InvestigationListComponent, canActivate: [AuthGuard] },
   { path: 'investigation/detail/:id', component: InvestigationDetailsComponent, canActivate: [AuthGuard] },
