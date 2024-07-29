@@ -1,0 +1,73 @@
+<div class="top-container">
+  <h2 *ngIf="investigationDetails">{{investigationDetails.label}}</h2>
+  <h3>Investigation Details</h3>
+
+  <button (click)="addStep()">Add Step</button>
+  <button [routerLink]="['/investigation/detail/update', investigationId]">Edit Steps</button>
+
+  <!-- <div class="container"
+    [style]="{'width': '50%', 'background-color': '#f5f5f5', 'margin-bottom': '10px', 'margin-left': '250px'}">
+    <div *ngIf="investigationDetails" class="form-group">
+
+      <div *ngFor="let step of investigationSteps" [style]="{'padding':'30px'}">
+        <label for="step.id">{{step.description}}</label>
+        <input *ngIf="step.displayType === 'text'" type="text" class="form-control" required>
+        <select *ngIf="step.displayType === 'select'" class="form-control" id="power" required>
+          <option *ngFor="let option of step.options">{{option.optionText}}</option>
+        </select>
+        <div *ngIf="step.displayType === 'Radio'">
+          <div *ngFor="let option of step.choices">
+            <label>
+              <input type="radio" name="step_{{ option.id }}" [value]="option.description" required>
+              {{ option.description }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+</div>
+
+<mat-table #table [dataSource]="investigationSteps" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="id" sticky>
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let step">{{step.id}}</mat-cell>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let step">{{step.description}}</mat-cell>
+  </ng-container>
+
+  <!-- Type Status Column -->
+  <ng-container matColumnDef="displayType">
+    <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+    <mat-cell *matCellDef="let step"> {{step.displayType}} </mat-cell>
+  </ng-container>
+
+  <!-- Required Column -->
+  <ng-container matColumnDef="required">
+    <mat-header-cell *matHeaderCellDef> Required </mat-header-cell>
+    <mat-cell *matCellDef="let step"> 
+      <span *ngIf = "step.required === '1'">Yes</span>
+      <span *ngIf = "step.required === '0'">No</span>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Actions Column -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+
+    <mat-cell *matCellDef="let element">
+      <button >Delete</button>
+     
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<!-- <pre>{{ investigationDetails | json }}</pre> -->
