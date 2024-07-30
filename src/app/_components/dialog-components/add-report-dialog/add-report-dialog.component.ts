@@ -10,14 +10,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-add-investigation-dialog',
+  selector: 'app-add-report-dialog',
   standalone: true,
   imports: [MatFormField, ReactiveFormsModule,
     MatDialogModule, CommonModule, MatInputModule, MatButtonModule, MatSelectModule],
-  templateUrl: './add-investigation-dialog.component.html',
-  styleUrl: './add-investigation-dialog.component.scss'
+  templateUrl: './add-report-dialog.component.html',
+  styleUrl: './add-report-dialog.component.scss'
 })
-export class AddInvestigationDialogComponent {
+export class AddReportDialogComponent {
 
   form: FormGroup;
   revisionStatus: RevisionStatus[] = [
@@ -26,7 +26,7 @@ export class AddInvestigationDialogComponent {
     { value: '3', label: 'Published' }
   ];
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddInvestigationDialogComponent>) {
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddReportDialogComponent>) {
     this.form = this.fb.group({
       label: [''],
       revision_status: ['1']
