@@ -6,13 +6,13 @@ export class ListOfReport {
       label: string,
       entityId: number,
       revisionCreationTime: string,
-      revisionStatus: string,
+      investigationId: number,
       createdTime:string
     ) {
       this.label = label;
       this.entityId = entityId;
       this.revisionCreationTime = revisionCreationTime;
-      this.revisionStatus = revisionStatus;
+      this.investigationId = investigationId;
       this.createdTime = createdTime;
     }
     /**
@@ -31,9 +31,9 @@ export class ListOfReport {
     revisionCreationTime: string;
   
     /**
-     * Determines the staus of an investigation (i.e, draft, archived, published)
+     * Determines the linked investigation.
      */
-    revisionStatus: string;
+    investigationId: number;
   
     /**
      * Time when the investigation  created

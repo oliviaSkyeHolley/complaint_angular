@@ -1,10 +1,8 @@
-import {Step} from "./step";
-
 export class Report {
-  constructor( entityId: number, label: string,   steps: Step[]) {
+  constructor( entityId: number, label: string,   investigationId: number) {
     this.entityId = entityId;
     this.label = label;
-    this.steps = steps;
+    this.investigationId = investigationId;
   }
 
   /**
@@ -21,7 +19,7 @@ export class Report {
   /**
    * A list of steps 
    */
-  steps: Step[];
+  investigationId: number;
 }
 
 
