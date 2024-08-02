@@ -16,7 +16,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="label">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> <a [routerLink]="['/investigation/detail', element.entityId]">{{element.label}}
+      <mat-cell *matCellDef="let element"> <a [routerLink]="['/report/conduct', element.entityId]">{{element.label}}
         </a></mat-cell>
     </ng-container>
   

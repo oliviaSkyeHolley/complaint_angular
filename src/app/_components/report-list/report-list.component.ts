@@ -10,7 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddReportDialogComponent } from '../dialog-components/add-report-dialog/add-report-dialog.component';
 import { DuplicateReportDialogComponent } from '../dialog-components/duplicate-report-dialog/duplicate-report-dialog.component';
 import { MatDialog} from '@angular/material/dialog';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b0f0e3 (Report Conduct Page + Report DELETE)
 @Component({
   selector: 'app-report-list',
   standalone: true,
@@ -20,7 +23,11 @@ import { MatDialog} from '@angular/material/dialog';
 })
 export class ReportListComponent {
   reports: ListOfReport[] = [];
+<<<<<<< HEAD
   displayedColumns: string[] = ['entityid', 'label', 'investigationId', 'createdTime', 'actions'];
+=======
+  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'actions'];
+>>>>>>> 6b0f0e3 (Report Conduct Page + Report DELETE)
 
   constructor(private http: HttpClient, private authService: AuthService, private reportService: ReportService, private dialog: MatDialog) { }
 
@@ -47,8 +54,13 @@ export class ReportListComponent {
         
         const formattedData = {
           label: result.label,
+<<<<<<< HEAD
           investigation_id: result.investigation_id,
           json_string: JSON.stringify({ label: result.label}) 
+=======
+          investigation_id: result.investigation_id, 
+          json_string: JSON.stringify({ label: result.label})
+>>>>>>> 6b0f0e3 (Report Conduct Page + Report DELETE)
         }
 
         this.reportService.addReport(formattedData).subscribe({
@@ -78,7 +90,8 @@ export class ReportListComponent {
       if (result) {
         const formattedData = {
           label: result.label,
-          investigation_id: result.investigation_id, 
+          investigation_id: result.investigation_id,
+          json_string: result.json_string
           //have to add the remaining data fields
         }
         this.reportService.addReport(formattedData).subscribe({

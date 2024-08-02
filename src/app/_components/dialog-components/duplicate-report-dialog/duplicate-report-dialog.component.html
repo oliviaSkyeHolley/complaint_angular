@@ -9,9 +9,9 @@
     </mat-form-field>
     <p>Revision Status</p>
     <mat-form-field>
-      <mat-select formControlName="revision_status" placeholder="Select Revision Status">
-        <mat-option *ngFor="let status of revisionStatus" [value]="status.value">{{ status.label }}</mat-option>
-      </mat-select>
+      <mat-select formControlName="investigation_id" placeholder="Select Investigation">
+        <mat-option *ngFor="let investigationId of investigationId" [value]="investigationId.value">{{ investigationId.label }}</mat-option>
+    </mat-select>
     </mat-form-field>
   </mat-dialog-content>
 
