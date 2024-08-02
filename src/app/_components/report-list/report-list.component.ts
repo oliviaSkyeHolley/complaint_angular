@@ -10,7 +10,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddReportDialogComponent } from '../dialog-components/add-report-dialog/add-report-dialog.component';
 import { DuplicateReportDialogComponent } from '../dialog-components/duplicate-report-dialog/duplicate-report-dialog.component';
 import { MatDialog} from '@angular/material/dialog';
-import { Step } from '../../_classes/step';
 @Component({
   selector: 'app-report-list',
   standalone: true,
@@ -20,8 +19,7 @@ import { Step } from '../../_classes/step';
 })
 export class ReportListComponent {
   reports: ListOfReport[] = [];
-  step:Step[] = [];   // Not sure if we need steps in the Reports...
-  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'actions'];
+  displayedColumns: string[] = ['entityid', 'label', 'investigationId', 'createdTime', 'actions'];
 
   constructor(private http: HttpClient, private authService: AuthService, private reportService: ReportService, private dialog: MatDialog) { }
 
@@ -48,8 +46,8 @@ export class ReportListComponent {
         
         const formattedData = {
           label: result.label,
-          revision_status: result.revision_status, 
-          json_string: JSON.stringify({ label: result.label,steps: this.step })
+          investigation_id: result.investigation_id,
+          json_string: JSON.stringify({ label: result.label}) 
         }
 
         this.reportService.addReport(formattedData).subscribe({
@@ -79,9 +77,9 @@ export class ReportListComponent {
       if (result) {
         const formattedData = {
           label: result.label,
-          revision_status: result.revision_status, 
+          investigation_id: result.investigation_id,
           json_string: result.json_string
-          //have to add the remeining data fields
+          //have to add the remaining data fields
         }
         this.reportService.addReport(formattedData).subscribe({
           next: (response) => {

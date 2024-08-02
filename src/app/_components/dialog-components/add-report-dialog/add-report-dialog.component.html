@@ -1,5 +1,4 @@
-
-<h2 mat-dialog-title>Add new investigation</h2>
+<h2 mat-dialog-title>Generate New Report</h2>
 
 <form [formGroup]="form" (ngSubmit)="save()">
     <mat-dialog-content>
@@ -9,7 +8,7 @@
         </mat-form-field>
         <p>Investigation</p>
         <mat-form-field>
-            <mat-select formControlName="investigation" placeholder="Select Investigation">
+            <mat-select formControlName="investigation_id" placeholder="Select Investigation">
                 <mat-option *ngFor="let investigationId of investigationId" [value]="investigationId.value">{{ investigationId.label }}</mat-option>
             </mat-select>
         </mat-form-field>
