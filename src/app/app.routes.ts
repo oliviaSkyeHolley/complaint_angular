@@ -3,7 +3,7 @@ import { AuthGuard } from './_services/auth-guard.guard';
 import { AuthenticateComponent } from './_components/authenticate/authenticate.component';
 import { InvestigationListComponent } from './_components/investigation-list/investigation-list.component';
 import { InvestigationDetailsComponent } from './_components/investigation-details/investigation-details.component';
-import { UpdateInvestegationStepsComponent } from './_components/dialog-components/update-investegation-steps/update-investegation-steps.component';
+import { UpdateInvestegationStepsComponent } from './_components/update-investegation-steps/update-investegation-steps.component';
 import { ReportConductComponent } from './_components/report-conduct/report-conduct.component';
 import { ReportListComponent } from './_components/report-list/report-list.component';
 export const appRoutes: Routes = [

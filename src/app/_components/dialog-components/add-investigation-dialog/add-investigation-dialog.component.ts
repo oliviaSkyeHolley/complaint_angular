@@ -21,15 +21,15 @@ export class AddInvestigationDialogComponent {
 
   form: FormGroup;
   revisionStatus: RevisionStatus[] = [
-    { value: '1', label: 'Archived' },
-    { value: '2', label: 'Draft' },
-    { value: '3', label: 'Published' }
+    { value: 'Archived', label: 'Archived' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Published', label: 'Published' }
   ];
 
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddInvestigationDialogComponent>) {
     this.form = this.fb.group({
       label: [''],
-      revision_status: ['1']
+      revision_status: ['Draft']
     });
   }
 

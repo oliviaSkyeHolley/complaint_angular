@@ -10,19 +10,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { StepChoice } from '../../../_classes/step-choice';
-import { UuidService } from '../../../_services/uuid.service';
 import { Step } from '../../../_classes/step';
-
 @Component({
-  selector: 'app-add-investigation-step-dialog',
+  selector: 'app-update-step-dialog',
   standalone: true,
   imports: [MatFormField, ReactiveFormsModule,
     MatDialogModule, CommonModule,MatIconModule, MatInputModule, MatButtonModule, MatSelectModule],
-  templateUrl: './add-investigation-step-dialog.component.html',
-  styleUrl: './add-investigation-step-dialog.component.scss'
+  templateUrl: './update-investigation-step-dialog.component.html',
+  styleUrl: './update-investigation-step-dialog.component.scss'
 })
-export class AddInvestigationStepDialogComponent {
-  
+export class UpdateInvestigationStepDialogComponent {
   form: FormGroup;
   displayType: DisplayType[] = [
     { value: 'radio', label: 'Radio' },
@@ -33,29 +30,38 @@ export class AddInvestigationStepDialogComponent {
   ];
   stepChoices: StepChoice[]=[];
   filteredStepsData: Step[] = [];
-  constructor(private fb: FormBuilder, private uuidService: UuidService, public dialogRef: MatDialogRef<AddInvestigationStepDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any[]) {
-    this.form = this.fb.group({
-      description: [''],
-      required: [''],
-      displayType:[''],
-      choices: this.fb.array([]),
-      conditions: this.fb.array([])
-    });
 
-    this.filteredStepsData = data.filter(s => s.displayType !== "textbox");
-   
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<UpdateInvestigationStepDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: { step: any; stepsData: any[] } ) {
+    this.form = this.fb.group({
+      description: [data.step.description],
+      required: [data.step.required],
+      displayType:[data.step.displayType],
+      choices: this.fb.array(
+        data.step.choices.map((choice: any) => this.fb.group({
+          id: [choice.id],
+          choiceUuid:[choice.choiceUuid],
+          description: [choice.description || '']
+        })) || []
+      ),
+      conditions: this.fb.array(
+        data.step.conditions.map((condition: any) => this.fb.group({
+          stepUuid: [condition.stepUuid || ''],
+          choiceUuid: [condition.choiceUuid || '']
+        })) || []
+      )
+    });
+    this.filteredStepsData = data.stepsData.filter(s => s.stepUuid !== data.step.stepUuid);
   }
 
   get choices() {
-
     return this.form.get('choices') as FormArray;
   }
 
   addChoice() {
     const index = this.choices.length + 1;
     this.choices.push(this.fb.group({
-      id: [index],
-      choiceUuid:[this.uuidService.generateUuid()],
+       id: [index],
+      choiceUuid:[''],
       description:['']
     }));
   }
@@ -66,6 +72,7 @@ export class AddInvestigationStepDialogComponent {
 
 //logic
   get conditions() {
+    console.log("selected id: ", this.data.step.stepUuid)
     return this.form.get('conditions') as FormArray;
   }
 
@@ -83,17 +90,18 @@ export class AddInvestigationStepDialogComponent {
   }
 
  
+
   getValues(uuid: string) {
 
-    for (const step of this.filteredStepsData) {
-   
-      if (step.choices && step.stepUuid === uuid) {
-        this.stepChoices = step.choices   
+      for (const step of this.data.stepsData) {
+     
+        if (step.choices && step.stepUuid === uuid) {
+          this.stepChoices = step.choices;
+        }
       }
-    }
-  
-  return []; 
-}
+    
+    return []; 
+  }
 
   close(): void {
     this.dialogRef.close();
@@ -102,14 +110,16 @@ export class AddInvestigationStepDialogComponent {
 
   save(): void {
     if (this.form.valid) {
+      console.log(this.form.value);
+      const updatedStep = {
       
-      const newStepData = {
-        id: this.data.length + 1,
-        stepUuid: this.uuidService.generateUuid(),
-        ...this.form.value
-      }
-      console.log('new:', newStepData);
-      this.dialogRef.close(newStepData);
+        id: this.data.step.id,
+        stepUuid: this.data.step.stepUuid,
+        ...this.form.value,
+
+      };
+      console.log("Updated Step: ", updatedStep)
+      this.dialogRef.close(updatedStep);
     } else {
 
     }
