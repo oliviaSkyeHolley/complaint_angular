@@ -39,7 +39,7 @@
     <mat-cell *matCellDef="let element">
       <button (click)="duplicateInvestigation(element)">Duplicate</button>
       <button (click)="deleteInvestigation(element.entityId)">Delete</button>
-      <button>Edit</button>
+      <button (click)="updateInvestigation(element)">Edit</button>
     </mat-cell>
   </ng-container>
 

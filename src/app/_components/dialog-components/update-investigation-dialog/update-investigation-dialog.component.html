@@ -1,5 +1,5 @@
 
-<h2 mat-dialog-title>Duplicate investigation</h2>
+<h2 mat-dialog-title>Update investigation</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSave()">
   <mat-dialog-content>
@@ -9,7 +9,7 @@
     </mat-form-field>
     <p>Revision Status</p>
     <mat-form-field>
-      <mat-select formControlName="revision_status" placeholder="Select Revision Status" required>
+      <mat-select formControlName="revision_status" placeholder="Select Revision Status">
         <mat-option *ngFor="let status of revisionStatus" [value]="status.value">{{ status.label }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -17,6 +17,6 @@
 
   <mat-dialog-actions>
     <button mat-button (click)="close()">Close</button>
-    <button mat-button color="primary" type="submit" [disabled]="form.invalid">Duplicate</button>
+    <button mat-button color="primary" type="submit" [disabled]="form.invalid">Update</button>
   </mat-dialog-actions>
 </form>

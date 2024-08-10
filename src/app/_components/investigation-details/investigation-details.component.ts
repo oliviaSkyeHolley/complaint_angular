@@ -43,12 +43,10 @@ export class InvestigationDetailsComponent implements OnInit {
 
   getInvestigationDetail(): void {
     const headers = this.authService.getHeaders();
-    this.investigationService.getInvestigation(this.investigationId, headers).subscribe(
+    this.investigationService.getInvestigationSteps(this.investigationId, headers).subscribe(
       (data) => {
         this.investigationDetails = data;
         this.investigationSteps = data.steps;
-        console.log('Investigation Details:', data);
-        console.log(this.investigationSteps);
       },
       (error) => {
         console.error('Error fetching investigation details:', error);
@@ -65,16 +63,9 @@ export class InvestigationDetailsComponent implements OnInit {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      console.log(result)
-      const formattedData = {
-        label: this.investigationDetails.label,
-        steps: { description: result.description, required: result.required }
-      }
-      JSON.stringify(formattedData);
-      console.log(formattedData)
-      this.investigationService.addStepToInvestigation(this.investigationDetails.entityId, formattedData).subscribe({
+      this.investigationService.addInvestigationStep(this.investigationDetails.entityId, result).subscribe({
         next: (response) => {
-          console.log('Successfully added step:', formattedData);
+          console.log('Successfully added step:', result);
           this.getInvestigationDetail();
         },
         error: (err) => {
@@ -83,5 +74,18 @@ export class InvestigationDetailsComponent implements OnInit {
       });
     }
   });
+  }
+
+  deleteStep(stepUuid: string):void{
+    this.investigationService.deleteInvestigationStep(this.investigationDetails.entityId, stepUuid).subscribe({
+      next: (response) =>{
+        console.log('Successfully deleted investigation step ', stepUuid);
+        this.getInvestigationDetail();
+      },
+      error: (err) =>{
+        console.error('Error deleting investigation step', err);
+      }
+    })
+
   }
 }

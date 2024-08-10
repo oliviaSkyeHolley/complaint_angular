@@ -6,7 +6,7 @@ export class Step {
 
 
 
-  constructor(id: string, stepUuid: string, displayType: string,  required: string, description: string, choices: StepChoice[], conditions: Condition[]) {
+  constructor(id: number, stepUuid: string, displayType: string,  required: string, description: string, choices: StepChoice[], conditions: Condition[]) {
 
     this.id = id;
     this.stepUuid = stepUuid;
@@ -22,7 +22,7 @@ export class Step {
   /**
    * id of a step
    */
-  id: string;
+  id: number;
 
   /**
    * Unique id for each step
