@@ -108,7 +108,6 @@ export class AddInvestigationStepDialogComponent {
         stepUuid: this.uuidService.generateUuid(),
         ...this.form.value
       }
-      console.log('new:', newStepData);
       this.dialogRef.close(newStepData);
     } else {
 

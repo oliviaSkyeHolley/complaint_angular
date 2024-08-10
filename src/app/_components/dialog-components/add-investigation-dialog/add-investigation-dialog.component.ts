@@ -40,7 +40,6 @@ export class AddInvestigationDialogComponent {
 
   save(): void {
     if (this.form.valid) {
-      console.log(this.form.value)
       this.dialogRef.close(this.form.value);
     } else {
 

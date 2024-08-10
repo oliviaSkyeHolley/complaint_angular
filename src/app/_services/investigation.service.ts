@@ -15,6 +15,7 @@ export class InvestigationService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  //Investigation 
   getInvestigationList(): Observable<ListOfInvestigation[]> {
     const headers = this.authService.getHeaders();
     return this.http.get<ListOfInvestigation[]>(environment.getInvestigationListURL, { headers });
@@ -40,6 +41,7 @@ export class InvestigationService {
   }
 
   
+  //Investigation Steps
 
   getInvestigationSteps(investigationId: string, headers: HttpHeaders): Observable<Investigation> {
 
@@ -58,15 +60,15 @@ export class InvestigationService {
 
   }
     
-    updateInvestigationStep(investigationId:string,stepUuid: string, stepData: any): Observable<any> {
+  updateInvestigationStep(investigationId:string,stepUuid: string, stepData: any): Observable<any> {
       const headers = this.authService.getHeaders();
       const url = `${environment.updateInvestigationStepURL.replace('{investigationId}', investigationId).replace('{stepUuid}', stepUuid)}`;
       return this.http.patch<Step>(url, stepData, {headers});
-    }
+  }
 
-    updateInvestigationStepOrder(investigationId:string, stepsData: any): Observable<any> {
+  updateInvestigationStepOrder(investigationId:string, stepsData: any): Observable<any> {
       const headers = this.authService.getHeaders();
       return this.http.patch<Step>(`${environment.updateInvestigationStepOrderURL}${investigationId}`, stepsData, {headers});
-    }
+  }
 
 }

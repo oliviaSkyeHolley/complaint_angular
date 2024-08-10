@@ -29,8 +29,6 @@ export class UpdateInvestigationDialogComponent {
   constructor( private fb: FormBuilder,public dialogRef: MatDialogRef<UpdateInvestigationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(this.data.investigation.json_string)
-    console.log(this.data)
     this.form = this.fb.group({
       label: [this.data.investigation.label],
       revision_status: [this.data.investigation.revisionStatus],

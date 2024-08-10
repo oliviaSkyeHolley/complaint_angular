@@ -14,7 +14,6 @@ import { MatTable, MatTableModule } from '@angular/material/table';
 import { UpdateInvestigationStepDialogComponent } from '../dialog-components/update-investigation-step-dialog/update-investigation-step-dialog.component';
 import { Step } from '../../_classes/step';
 import { Investigation } from '../../_classes/investigation';
-import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-update-investegation-steps',
   standalone: true,
@@ -31,7 +30,6 @@ export class UpdateInvestegationStepsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private cd: ChangeDetectorRef,
     private authService: AuthService,
     private investigationService: InvestigationService,
     private dialog: MatDialog,
@@ -60,21 +58,11 @@ export class UpdateInvestegationStepsComponent implements OnInit {
   drop(event: CdkDragDrop<string>) {
     const previousIndex = this.investigationSteps.findIndex(d => d === event.item.data);
     const movedStep = this.investigationSteps[previousIndex];
-    console.log("Moved step: ", this.investigationSteps[previousIndex]);
-    // Log the current and new index
-    console.log('Moving step from index:', previousIndex, 'to index:', event.currentIndex);
-  
     moveItemInArray(this.investigationSteps, previousIndex, event.currentIndex);
-  
     this.investigationSteps.forEach((step, index) => {
       step.id = index + 1; 
     });
-    
-    // Verify the new order
-    console.log('New order:', this.investigationSteps);
-    
-    // this.investigationService.addInvestigationStep(this.investigationId, this.)
-  
+
 }
 
 openEditDialog(step: any): void {
@@ -101,11 +89,11 @@ openEditDialog(step: any): void {
 saveChanges(){
   this.investigationService.updateInvestigationStepOrder(this.investigationId, this.investigationSteps).subscribe({
     next: (response) => {
-      console.log('Successfully updated all steps');
+      console.log('Successfully updated order of steps');
       this.getInvestigationDetail();
     },
     error: (err) => {
-      console.error('Error updating steps:', err);
+      console.error('Error updating steps order:', err);
     }
   })
 }

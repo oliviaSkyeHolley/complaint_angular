@@ -44,14 +44,14 @@ export class DuplicateInvestigationDialogComponent {
 
   onSave(): void {
     if (this.form.valid) {
-      const updatedInvestigation = {
+      const duplicateInvestigation = {
         ...this.data,
         label: this.form.value.label,
         revision_status: this.form.value.revision_status,
         json_string: this.data.investigation.json_string
 
       };
-      this.dialogRef.close(updatedInvestigation);
+      this.dialogRef.close(duplicateInvestigation);
     }
   }
 }

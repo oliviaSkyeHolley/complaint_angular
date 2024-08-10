@@ -42,8 +42,6 @@ export class InvestigationListComponent implements OnInit {
   }
 
   addInvestigation(): void {
-
-
     const dialogRef = this.dialog.open(AddInvestigationDialogComponent, {
       width: '400px'
     });
@@ -74,17 +72,10 @@ export class InvestigationListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("This is result", result)
       if (result) {
-        const formattedData = {
-          label: result.label,
-          revision_status: result.revision_status, 
-          json_string: result.json_string
-          //have to add the remeining data fields
-        }
         this.investigationService.updateInvestigation(investigation.entityId, result).subscribe({
           next: (response) => {
-            console.log('Successfully updated investigation:', formattedData);
+            console.log('Successfully updated investigation:', result);
             this.getInvestigationList();
           },
           error: (err) => {
@@ -107,7 +98,6 @@ export class InvestigationListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("This is result", result)
       if (result) {
 
         this.investigationService.duplicateInvestigation(result).subscribe({

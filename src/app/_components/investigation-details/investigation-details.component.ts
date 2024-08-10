@@ -47,8 +47,6 @@ export class InvestigationDetailsComponent implements OnInit {
       (data) => {
         this.investigationDetails = data;
         this.investigationSteps = data.steps;
-        console.log('Investigation Details:', data);
-        console.log(this.investigationSteps);
       },
       (error) => {
         console.error('Error fetching investigation details:', error);

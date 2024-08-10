@@ -92,9 +92,7 @@ export class UpdateInvestigationStepDialogComponent {
  
 
   getValues(uuid: string) {
-
-      for (const step of this.data.stepsData) {
-     
+      for (const step of this.data.stepsData) {   
         if (step.choices && step.stepUuid === uuid) {
           this.stepChoices = step.choices;
         }
@@ -110,15 +108,12 @@ export class UpdateInvestigationStepDialogComponent {
 
   save(): void {
     if (this.form.valid) {
-      console.log(this.form.value);
       const updatedStep = {
       
         id: this.data.step.id,
         stepUuid: this.data.step.stepUuid,
         ...this.form.value,
-
       };
-      console.log("Updated Step: ", updatedStep)
       this.dialogRef.close(updatedStep);
     } else {
 
