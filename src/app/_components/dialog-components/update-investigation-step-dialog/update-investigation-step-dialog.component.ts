@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { StepChoice } from '../../../_classes/step-choice';
 import { Step } from '../../../_classes/step';
 @Component({
-  selector: 'app-update-step-dialog',
+  selector: 'app-update-investigation-step-dialog',
   standalone: true,
   imports: [MatFormField, ReactiveFormsModule,
     MatDialogModule, CommonModule,MatIconModule, MatInputModule, MatButtonModule, MatSelectModule],
@@ -108,8 +108,12 @@ export class UpdateInvestigationStepDialogComponent {
 
   save(): void {
     if (this.form.valid) {
+      console.log(this.form.value.displayType )
+      console.log(this.form.value.stepChoices )
+      if(this.form.value.displayType == "textbox"){
+        this.form.value.choices = [];
+      }
       const updatedStep = {
-      
         id: this.data.step.id,
         stepUuid: this.data.step.stepUuid,
         ...this.form.value,
