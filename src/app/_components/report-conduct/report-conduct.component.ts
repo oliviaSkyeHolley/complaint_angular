@@ -9,7 +9,7 @@ import { ReportService } from '../../_services/report.service';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EditorComponent } from '@tinymce/tinymce-angular';
@@ -18,7 +18,7 @@ import { EditorComponent } from '@tinymce/tinymce-angular';
 @Component({
   selector: 'app-report-conduct',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule, MatRadioModule, MatFormField, MatInputModule, MatCheckbox, EditorComponent],
+  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule, MatRadioModule, MatFormField, MatInputModule, MatCheckbox, EditorComponent, MatLabel],
   templateUrl: './report-conduct.component.html',
   styleUrls: ['./report-conduct.component.scss']
 })
