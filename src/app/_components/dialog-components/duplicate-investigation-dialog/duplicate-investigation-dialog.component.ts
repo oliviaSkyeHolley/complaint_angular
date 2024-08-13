@@ -22,16 +22,14 @@ export class DuplicateInvestigationDialogComponent {
 
   form: FormGroup;
   revisionStatus = [
-    { value: '1', label: 'Archived' },
-    { value: '2', label: 'Draft' },
-    { value: '3', label: 'Published' }
+    { value: 'Archived', label: 'Archived' },
+    { value: 'Draft', label: 'Draft' },
+    { value: 'Published', label: 'Published' }
   ];
 
   constructor( private fb: FormBuilder,public dialogRef: MatDialogRef<DuplicateInvestigationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(this.data.investigation.json_string)
-    console.log(this.data)
     this.form = this.fb.group({
       label: [this.data.investigation.label],
       revision_status: [this.data.investigation.revisionStatus],
@@ -46,14 +44,14 @@ export class DuplicateInvestigationDialogComponent {
 
   onSave(): void {
     if (this.form.valid) {
-      const updatedInvestigation = {
+      const duplicateInvestigation = {
         ...this.data,
         label: this.form.value.label,
         revision_status: this.form.value.revision_status,
         json_string: this.data.investigation.json_string
 
       };
-      this.dialogRef.close(updatedInvestigation);
+      this.dialogRef.close(duplicateInvestigation);
     }
   }
 }

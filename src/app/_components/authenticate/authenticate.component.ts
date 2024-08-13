@@ -3,13 +3,16 @@ import {Router, RouterModule} from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-authenticate',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, MatFormField, MatInputModule, MatButtonModule],
   templateUrl: './authenticate.component.html',
-  styleUrl: './authenticate.component.css'
+  styleUrl: './authenticate.component.scss'
 })
 
 export class AuthenticateComponent {
