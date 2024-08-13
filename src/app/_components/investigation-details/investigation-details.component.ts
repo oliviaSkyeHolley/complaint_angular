@@ -3,7 +3,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
 import {CommonModule} from "@angular/common";
@@ -11,12 +10,15 @@ import {FormsModule} from "@angular/forms";
 import {InvestigationService} from "../../_services/investigation.service";
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AddInvestigationStepDialogComponent } from '../dialog-components/add-investigation-step-dialog/add-investigation-step-dialog.component';
 
 @Component({
   selector: 'app-investigation-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule],
+  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule, MatTabsModule, MatButtonModule, MatIconModule],
   templateUrl: './investigation-details.component.html',
   styleUrl: './investigation-details.component.scss'
 })
@@ -43,12 +45,11 @@ export class InvestigationDetailsComponent implements OnInit {
 
   getInvestigationDetail(): void {
     const headers = this.authService.getHeaders();
-    this.investigationService.getInvestigation(this.investigationId, headers).subscribe(
+    this.investigationService.getInvestigationSteps(this.investigationId, headers).subscribe(
       (data) => {
         this.investigationDetails = data;
         this.investigationSteps = data.steps;
-        console.log('Investigation Details:', data);
-        console.log(this.investigationSteps);
+      
       },
       (error) => {
         console.error('Error fetching investigation details:', error);
@@ -65,16 +66,9 @@ export class InvestigationDetailsComponent implements OnInit {
 
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      console.log(result)
-      const formattedData = {
-        label: this.investigationDetails.label,
-        steps: { description: result.description, required: result.required }
-      }
-      JSON.stringify(formattedData);
-      console.log(formattedData)
-      this.investigationService.addStepToInvestigation(this.investigationDetails.entityId, formattedData).subscribe({
+      this.investigationService.addInvestigationStep(this.investigationDetails.entityId, result).subscribe({
         next: (response) => {
-          console.log('Successfully added step:', formattedData);
+          console.log('Successfully added step:', result);
           this.getInvestigationDetail();
         },
         error: (err) => {
@@ -83,5 +77,18 @@ export class InvestigationDetailsComponent implements OnInit {
       });
     }
   });
+  }
+
+  deleteStep(stepUuid: string):void{
+    this.investigationService.deleteInvestigationStep(this.investigationDetails.entityId, stepUuid).subscribe({
+      next: (response) =>{
+        console.log('Successfully deleted investigation step ', stepUuid);
+        this.getInvestigationDetail();
+      },
+      error: (err) =>{
+        console.error('Error deleting investigation step', err);
+      }
+    })
+
   }
 }
