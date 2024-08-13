@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../_services/auth.service';
@@ -12,6 +11,7 @@ import { AddInvestigationDialogComponent } from '../dialog-components/add-invest
 import { MatDialog} from '@angular/material/dialog';
 import { DuplicateInvestigationDialogComponent } from '../dialog-components/duplicate-investigation-dialog/duplicate-investigation-dialog.component';
 import { Step } from '../../_classes/step';
+import { UpdateInvestigationDialogComponent } from '../dialog-components/update-investigation-dialog/update-investigation-dialog.component';
 @Component({
   selector: 'app-investigation-list',
   standalone: true,
@@ -42,30 +42,48 @@ export class InvestigationListComponent implements OnInit {
   }
 
   addInvestigation(): void {
-
-
     const dialogRef = this.dialog.open(AddInvestigationDialogComponent, {
       width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
-        const formattedData = {
-          label: result.label,
-          revision_status: result.revision_status, 
-          json_string: JSON.stringify({ label: result.label,steps: this.step })
-        }
 
-        this.investigationService.addInvestigation(formattedData).subscribe({
+        this.investigationService.createInvestigation(result).subscribe({
           next: (response) => {
-            console.log('Successfully added investigation:', formattedData);
+            console.log('Successfully added investigation:', result);
             this.getInvestigationList();
           },
           error: (err) => {
             console.error('Error adding investigation:', err);
           }
         });
+      }
+    });
+  }
+
+  updateInvestigation(investigation: any): void {
+
+    const dialogRef = this.dialog.open(UpdateInvestigationDialogComponent, {
+      width: '400px', data: {
+        investigation: investigation,
+
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.investigationService.updateInvestigation(investigation.entityId, result).subscribe({
+          next: (response) => {
+            console.log('Successfully updated investigation:', result);
+            this.getInvestigationList();
+          },
+          error: (err) => {
+            console.error('Error updating investigation:', err);
+          }
+        });
+      }else{
+
       }
     });
   }
@@ -80,17 +98,11 @@ export class InvestigationListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("This is result", result)
       if (result) {
-        const formattedData = {
-          label: result.label,
-          revision_status: result.revision_status, 
-          json_string: result.json_string
-          //have to add the remeining data fields
-        }
-        this.investigationService.addInvestigation(formattedData).subscribe({
+
+        this.investigationService.duplicateInvestigation(result).subscribe({
           next: (response) => {
-            console.log('Successfully duplicated investigation:', formattedData);
+            console.log('Successfully duplicated investigation:', result);
             this.getInvestigationList();
           },
           error: (err) => {
@@ -106,8 +118,13 @@ export class InvestigationListComponent implements OnInit {
 
     console.log(id)
     this.investigationService.deleteInvestigation(id).subscribe({
-      next: (data) => this.investigations = data,
-      error: (err) => console.error('Error fetching investigations', err)
+      next: (response) => {
+        console.log('Successfully deleted investigation:', id);
+        this.getInvestigationList();
+      },
+      error: (err) => {
+        console.error('Error deleting investigation:', err);
+      }
     })
 
   }

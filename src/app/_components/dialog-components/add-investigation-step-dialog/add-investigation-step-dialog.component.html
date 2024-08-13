@@ -8,14 +8,14 @@
     </mat-form-field>
     <p>Required</p>
     <mat-form-field>
-        <mat-select formControlName="required" placeholder="Select Required Status">
-            <mat-option  [value]="1">Yes</mat-option>
-            <mat-option  [value]="0">No</mat-option>
+        <mat-select formControlName="required" placeholder="Select Required Status" required>
+            <mat-option  [value]="'1'">Yes</mat-option>
+            <mat-option  [value]="'0'">No</mat-option>
         </mat-select>
     </mat-form-field>
     <p>Element Type</p>
     <mat-form-field>
-      <mat-select formControlName="displayType" placeholder="Select Element Type">
+      <mat-select formControlName="displayType" placeholder="Select Element Type" required>
         <mat-option *ngFor="let type of displayType" [value]="type.value">{{ type.label }}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -23,34 +23,34 @@
     <!-- radio options -->
     <div *ngIf="form.get('displayType')?.value === 'radio' || form.get('displayType')?.value === 'radio&text' || form.get('displayType')?.value === 'checkbox&text' || form.get('displayType')?.value === 'checkbox'">
       <p> Options:</p>
-      <div formArrayName="options">
-        <div *ngFor="let option of options.controls; let i = index">
+      <div formArrayName="choices">
+        <div *ngFor="let choice of choices.controls; let i = index" [formGroupName]="i">
           <mat-form-field>
-            <input matInput placeholder="Option {{ i + 1 }}">
-            <button mat-icon-button type="button" (click)="removeOption(i)">
+           <input matInput formControlName="description" placeholder="Option {{ i + 1 }}" required> 
+            <button mat-icon-button type="button" (click)="removeChoice(i)">
               <mat-icon >delete</mat-icon>
             </button>
           </mat-form-field>
         </div>
-        <button mat-button type="button" (click)="addOption()">Add Option</button>
+        <button mat-button type="button" (click)="addChoice()">Add Option</button>
       </div>
-
+    </div>
         <!--Condtion-->
         <p>Logic:</p>
         <div  formArrayName="conditions">
-          <div *ngFor="let condition of conditions.controls; let i = index">
+          <div *ngFor="let condition of conditions.controls; let i = index" [formGroupName]="i">
             <mat-form-field>
               <p>Condition {{ i + 1 }}</p>
-              <mat-select  placeholder="Select Step">
-                  <mat-option *ngFor="let step of data" [value]="step.id">{{ step.description }}</mat-option>
+              <mat-select formControlName="stepUuid" placeholder="Select Step" required>
+                  <mat-option *ngFor="let step of filteredStepsData" [value]="step.stepUuid" (onSelectionChange)="getValues(step.stepUuid)">{{ step.description }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
                 <p>Value is</p>
-                <mat-select  placeholder="Select Value">
-                  <div *ngFor="let step of data">
-                  <mat-option *ngFor="let choice of step.choices" [value]="choice.id">{{ choice.description }}</mat-option>
-                </div>
+                <mat-select formControlName="choiceUuid" placeholder="Select Value" required>
+
+                  <mat-option *ngFor="let choice of stepChoices" [value]="choice.choiceUuid">{{ choice.description }}</mat-option>
+
               </mat-select>
             <button mat-icon-button type="button" (click)="removeCondition(i)">
               <mat-icon fontIcon="delete"></mat-icon>
@@ -60,7 +60,7 @@
         </div>
         <button mat-button type="button" (click)="addCondition()">Add Condition</button>
       </div>
-    </div>
+    
   </mat-dialog-content>
 
   <mat-dialog-actions>

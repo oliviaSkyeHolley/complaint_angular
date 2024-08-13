@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import {RouterModule, RouterOutlet} from '@angular/router';
+import { CommonModule } from '@angular/common';
+import {RouterModule, RouterOutlet, Router} from '@angular/router';
+import { MenubarComponent } from "./_components/menubar/menubar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterOutlet, RouterModule, MenubarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Complaint InvestigationAngular Components';
+  constructor(public router: Router){}
+  title = 'Complaint Investigation Angular Components';
 }
