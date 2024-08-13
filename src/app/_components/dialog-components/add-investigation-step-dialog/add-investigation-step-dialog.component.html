@@ -26,7 +26,7 @@
       <div formArrayName="choices">
         <div *ngFor="let choice of choices.controls; let i = index" [formGroupName]="i">
           <mat-form-field>
-           <input matInput formControlName="description" placeholder="Option {{ i + 1 }}" > 
+           <input matInput formControlName="description" placeholder="Option {{ i + 1 }}" required> 
             <button mat-icon-button type="button" (click)="removeChoice(i)">
               <mat-icon >delete</mat-icon>
             </button>
@@ -34,20 +34,20 @@
         </div>
         <button mat-button type="button" (click)="addChoice()">Add Option</button>
       </div>
-
+    </div>
         <!--Condtion-->
         <p>Logic:</p>
         <div  formArrayName="conditions">
           <div *ngFor="let condition of conditions.controls; let i = index" [formGroupName]="i">
             <mat-form-field>
               <p>Condition {{ i + 1 }}</p>
-              <mat-select formControlName="stepUuid" placeholder="Select Step">
+              <mat-select formControlName="stepUuid" placeholder="Select Step" required>
                   <mat-option *ngFor="let step of filteredStepsData" [value]="step.stepUuid" (onSelectionChange)="getValues(step.stepUuid)">{{ step.description }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field>
                 <p>Value is</p>
-                <mat-select formControlName="choiceUuid" placeholder="Select Value">
+                <mat-select formControlName="choiceUuid" placeholder="Select Value" required>
 
                   <mat-option *ngFor="let choice of stepChoices" [value]="choice.choiceUuid">{{ choice.description }}</mat-option>
 
@@ -60,7 +60,7 @@
         </div>
         <button mat-button type="button" (click)="addCondition()">Add Condition</button>
       </div>
-    </div>
+    
   </mat-dialog-content>
 
   <mat-dialog-actions>

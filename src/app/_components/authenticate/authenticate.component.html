@@ -1,14 +1,23 @@
-<p>authenticate works!</p>
-<div>
-  <h2>Login</h2>
-  <form (ngSubmit)="login()">
-    <label for="username">Username:</label>
-    <input type="text" id="username" [(ngModel)]="username" name="username" required>
-    <br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" name="password" required>
-    <br>
-    <button type="submit">Login</button>
+<h2>C.I</h2>
+<div class="div-wrapper">
+<div class="div-container">
+  <div class="title-container">
+  <h2>LOGIN</h2>
+</div>
+<div class="form-container">
+  <form (ngSubmit)="login()" class="c">
+    <p>Username</p>
+    <mat-form-field class="username-input">
+      <input matInput  type="text" id="username" placeholder="username"[(ngModel)]="username" name="username" required>
+    </mat-form-field>
+    <p>Password</p>
+    <mat-form-field class="password-input">
+      <input matInput  type="password" id="password" placeholder="********" [(ngModel)]="password" name="password" required>
+    </mat-form-field>
+    <br />
+    <button mat-button  type="submit">Login</button>
   </form>
+  </div>
   <button (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</button>
+</div>
 </div>

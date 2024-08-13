@@ -7,8 +7,9 @@ import { AuthService } from '../../_services/auth.service';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import {InvestigationService} from "../../_services/investigation.service";
-import { CdkDragDrop, CdkDropList, CdkDrag,  moveItemInArray } from '@angular/cdk/drag-drop'; 
+import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop'; 
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { UpdateInvestigationStepDialogComponent } from '../dialog-components/update-investigation-step-dialog/update-investigation-step-dialog.component';
@@ -17,7 +18,7 @@ import { Investigation } from '../../_classes/investigation';
 @Component({
   selector: 'app-update-investegation-steps',
   standalone: true,
-  imports: [MatIconModule,CdkDropList, CdkDrag, CommonModule, FormsModule, RouterLink, MatTableModule, MatTable],
+  imports: [MatIconModule, MatButtonModule, CdkDropList, CdkDrag, CommonModule, FormsModule, RouterLink, MatTableModule, MatTable],
   templateUrl: './update-investegation-steps.component.html',
   styleUrl: './update-investegation-steps.component.scss'
 })
@@ -27,6 +28,7 @@ export class UpdateInvestegationStepsComponent implements OnInit {
   investigationDetails: any;
   investigationSteps: Step[]=[];
   displayedColumns: string[] = ['id', 'description', 'displayType', 'required', 'actions'];
+  changeDetected = false;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -55,6 +57,10 @@ export class UpdateInvestegationStepsComponent implements OnInit {
     );
   }
 
+
+
+ 
+
   drop(event: CdkDragDrop<string>) {
     const previousIndex = this.investigationSteps.findIndex(d => d === event.item.data);
     const movedStep = this.investigationSteps[previousIndex];
@@ -62,7 +68,7 @@ export class UpdateInvestegationStepsComponent implements OnInit {
     this.investigationSteps.forEach((step, index) => {
       step.id = index + 1; 
     });
-
+    this.changeDetected = true;
 }
 
 openEditDialog(step: any): void {

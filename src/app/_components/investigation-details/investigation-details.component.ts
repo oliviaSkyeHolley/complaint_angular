@@ -3,7 +3,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import {Router, RouterLink} from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
 import {CommonModule} from "@angular/common";
@@ -11,12 +10,15 @@ import {FormsModule} from "@angular/forms";
 import {InvestigationService} from "../../_services/investigation.service";
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AddInvestigationStepDialogComponent } from '../dialog-components/add-investigation-step-dialog/add-investigation-step-dialog.component';
 
 @Component({
   selector: 'app-investigation-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule],
+  imports: [CommonModule, FormsModule, RouterLink, MatTable, MatTableModule, MatTabsModule, MatButtonModule, MatIconModule],
   templateUrl: './investigation-details.component.html',
   styleUrl: './investigation-details.component.scss'
 })
@@ -47,6 +49,7 @@ export class InvestigationDetailsComponent implements OnInit {
       (data) => {
         this.investigationDetails = data;
         this.investigationSteps = data.steps;
+      
       },
       (error) => {
         console.error('Error fetching investigation details:', error);
