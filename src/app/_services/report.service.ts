@@ -29,7 +29,6 @@ export class ReportService {
   }
 
   getReport(reportId: string, headers: HttpHeaders): Observable<Report> {
-
     return this.http.get<Report>(`${environment.getReportURL}${reportId}?_format=json`, { headers });
   }
 }
