@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AddInvestigationStepDialogComponent } from '../dialog-components/add-investigation-step-dialog/add-investigation-step-dialog.component';
+import { InvestigationStepDetailComponent } from '../investigation-step-detail/investigation-step-detail.component';
 
 @Component({
   selector: 'app-investigation-details',
@@ -26,7 +27,7 @@ export class InvestigationDetailsComponent implements OnInit {
   investigationId: string;
   investigationDetails: any;
   investigationSteps: any;
-  displayedColumns: string[] = ['id', 'description', 'displayType', 'required', 'actions'];
+  displayedColumns: string[] = ['id', 'description', 'displayType', 'required','logic', 'actions'];
 
   constructor(
     private route: ActivatedRoute,
@@ -56,7 +57,13 @@ export class InvestigationDetailsComponent implements OnInit {
       }
     );
   }
-
+  openViewDetailDialog(step: any): void {
+    const dialogRef = this.dialog.open(InvestigationStepDetailComponent, {
+      width: '60%',
+      data: { step: step, stepsData: this.investigationSteps }
+    });
+  
+  }
   addStep():void {
  
   const dialogRef = this.dialog.open(AddInvestigationStepDialogComponent, {
@@ -79,16 +86,5 @@ export class InvestigationDetailsComponent implements OnInit {
   });
   }
 
-  deleteStep(stepUuid: string):void{
-    this.investigationService.deleteInvestigationStep(this.investigationDetails.entityId, stepUuid).subscribe({
-      next: (response) =>{
-        console.log('Successfully deleted investigation step ', stepUuid);
-        this.getInvestigationDetail();
-      },
-      error: (err) =>{
-        console.error('Error deleting investigation step', err);
-      }
-    })
 
-  }
 }

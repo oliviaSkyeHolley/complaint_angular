@@ -23,11 +23,11 @@ import { Investigation } from '../../_classes/investigation';
   styleUrl: './update-investegation-steps.component.scss'
 })
 export class UpdateInvestegationStepsComponent implements OnInit {
-  // @ViewChild('table', {static:true}) table: MatTable<Invest>;
+  @ViewChild(MatTable, { static: true }) table!: MatTable<Step>;
   investigationId: string;
   investigationDetails: any;
   investigationSteps: Step[]=[];
-  displayedColumns: string[] = ['id', 'description', 'displayType', 'required', 'actions'];
+  displayedColumns: string[] = ['id', 'description', 'displayType', 'required','logic', 'actions'];
   changeDetected = false;
   constructor(
     private route: ActivatedRoute,
@@ -57,10 +57,7 @@ export class UpdateInvestegationStepsComponent implements OnInit {
     );
   }
 
-
-
  
-
   drop(event: CdkDragDrop<string>) {
     const previousIndex = this.investigationSteps.findIndex(d => d === event.item.data);
     const movedStep = this.investigationSteps[previousIndex];
@@ -69,6 +66,7 @@ export class UpdateInvestegationStepsComponent implements OnInit {
       step.id = index + 1; 
     });
     this.changeDetected = true;
+    this.table.renderRows();
 }
 
 openEditDialog(step: any): void {
@@ -97,11 +95,24 @@ saveChanges(){
     next: (response) => {
       console.log('Successfully updated order of steps');
       this.getInvestigationDetail();
+      this.changeDetected = false;
     },
     error: (err) => {
       console.error('Error updating steps order:', err);
     }
   })
+}
+deleteStep(stepUuid: string):void{
+  this.investigationService.deleteInvestigationStep(this.investigationDetails.entityId, stepUuid).subscribe({
+    next: (response) =>{
+      console.log('Successfully deleted investigation step ', stepUuid);
+      this.getInvestigationDetail();
+    },
+    error: (err) =>{
+      console.error('Error deleting investigation step', err);
+    }
+  })
+
 }
 
 }
