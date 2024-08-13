@@ -1,9 +1,10 @@
 <div>
   <div class="top-container">
     <h2>Investigation List</h2>
+    <button mat-button class="addbutton" (click)="addInvestigation()">+Add Investigation</button>
   </div>
 
-  <button class="addbutton" (click)="addInvestigation()">+Add Investigation</button>
+ 
 </div>
 
 <mat-table #table [dataSource]="investigations" class="mat-elevation-z8">
@@ -31,6 +32,12 @@
     <mat-header-cell *matHeaderCellDef> Created Time </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.createdTime}} </mat-cell>
   </ng-container>
+
+    <!-- Updated Time Column -->
+    <ng-container matColumnDef="updatedTime">
+      <mat-header-cell *matHeaderCellDef> Updated Time </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.updatedTime}} </mat-cell>
+    </ng-container>
 
   <!-- Actions Column -->
   <ng-container matColumnDef="actions">

@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import {  RouterLink } from '@angular/router';
 import { ListOfInvestigation } from "../../_classes/list-of-investigations";
 import { InvestigationService } from "../../_services/investigation.service";
+import { MatButton } from '@angular/material/button';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { AddInvestigationDialogComponent } from '../dialog-components/add-investigation-dialog/add-investigation-dialog.component';
@@ -25,7 +26,7 @@ import { UpdateInvestigationDialogComponent } from '../dialog-components/update-
 export class InvestigationListComponent implements OnInit {
   investigations: ListOfInvestigation[] = [];
   step:Step[] = [];
-  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'actions'];
+  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'updatedTime', 'actions'];
 
   constructor(private http: HttpClient, private authService: AuthService, private investigationService: InvestigationService, private dialog: MatDialog) { }
 
@@ -116,10 +117,8 @@ export class InvestigationListComponent implements OnInit {
   }
   deleteInvestigation(id: string): void {
 
-    console.log(id)
     this.investigationService.deleteInvestigation(id).subscribe({
       next: (response) => {
-        console.log('Successfully deleted investigation:', id);
         this.getInvestigationList();
       },
       error: (err) => {
