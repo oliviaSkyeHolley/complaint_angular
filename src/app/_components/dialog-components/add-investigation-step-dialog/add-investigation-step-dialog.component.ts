@@ -9,6 +9,10 @@ import { FormBuilder, FormGroup, FormArray  } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { StepChoice } from '../../../_classes/step-choice';
+import { UuidService } from '../../../_services/uuid.service';
+import { Step } from '../../../_classes/step';
+
 @Component({
   selector: 'app-add-investigation-step-dialog',
   standalone: true,
@@ -18,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './add-investigation-step-dialog.component.scss'
 })
 export class AddInvestigationStepDialogComponent {
+  
   form: FormGroup;
   displayType: DisplayType[] = [
     { value: 'radio', label: 'Radio' },
@@ -26,28 +31,37 @@ export class AddInvestigationStepDialogComponent {
     { value: 'checkbox&text', label: 'Checkbox & Text' },
     { value: 'textbox', label: 'Textbox' }
   ];
-
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddInvestigationStepDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  stepChoices: StepChoice[]=[];
+  filteredStepsData: Step[] = [];
+  constructor(private fb: FormBuilder, private uuidService: UuidService, public dialogRef: MatDialogRef<AddInvestigationStepDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any[]) {
     this.form = this.fb.group({
       description: [''],
       required: [''],
       displayType:[''],
-      options: this.fb.array([]),
+      choices: this.fb.array([]),
       conditions: this.fb.array([])
     });
-    
+
+    this.filteredStepsData = data.filter(s => s.displayType !== "textbox");
+   
   }
 
-  get options() {
-    return this.form.get('options') as FormArray;
+  get choices() {
+
+    return this.form.get('choices') as FormArray;
   }
 
-  addOption() {
-    this.options.push(this.fb.control(''));
+  addChoice() {
+    const index = this.choices.length + 1;
+    this.choices.push(this.fb.group({
+      id: [index],
+      choiceUuid:[this.uuidService.generateUuid()],
+      description:['']
+    }));
   }
 
-  removeOption(index: number) {
-    this.options.removeAt(index);
+  removeChoice(index: number) {
+    this.choices.removeAt(index);
   }
 
 //logic
@@ -56,7 +70,12 @@ export class AddInvestigationStepDialogComponent {
   }
 
   addCondition() {
-    this.conditions.push(this.fb.control(''));
+    const index = this.conditions.length + 1;
+    this.conditions.push(this.fb.group({
+      conditionId:[index],
+      stepUuid: [''],
+      choiceUuid: ['']
+    }));
   }
 
   removeCondition(index: number) {
@@ -64,30 +83,32 @@ export class AddInvestigationStepDialogComponent {
   }
 
  
-  //get the values of a step(have to work on it)
-  getValues(id: string) {
-  console.log(id)
-    if (Array.isArray(this.data.step)) {
+  getValues(uuid: string) {
+
+    for (const step of this.filteredStepsData) {
    
-      for (const step of this.data.step) {
-      
-        if (step.choice && step.stepId === id) {
-          console.log(step.choice)
-          return step.choice; 
-        }
+      if (step.choices && step.stepUuid === uuid) {
+        this.stepChoices = step.choices   
       }
     }
-    return []; 
-  }
+  
+  return []; 
+}
 
   close(): void {
     this.dialogRef.close();
+    this.form.reset();
   }
 
   save(): void {
     if (this.form.valid) {
-      console.log(this.form.value)
-      this.dialogRef.close(this.form.value);
+      
+      const newStepData = {
+        id: this.data.length + 1,
+        stepUuid: this.uuidService.generateUuid(),
+        ...this.form.value
+      }
+      this.dialogRef.close(newStepData);
     } else {
 
     }
