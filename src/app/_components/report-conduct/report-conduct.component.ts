@@ -14,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EditorComponent } from '@tinymce/tinymce-angular';
 
-
 @Component({
   selector: 'app-report-conduct',
   standalone: true,
@@ -22,9 +21,11 @@ import { EditorComponent } from '@tinymce/tinymce-angular';
   templateUrl: './report-conduct.component.html',
   styleUrls: ['./report-conduct.component.scss']
 })
+
 export class ReportConductComponent implements OnInit {
   reportId: string;
   reportDetails: any;
+  investigationJson: any;
   init: EditorComponent['init'] = {
     plugins: 'lists link image table code help wordcount'
   };
@@ -38,6 +39,7 @@ export class ReportConductComponent implements OnInit {
   ) {
     this.reportId = this.route.snapshot.params['id'];
     this.reportDetails = this.route.snapshot.params['json_string'];
+    this.investigationJson = this.route.snapshot.params
   }
 
   ngOnInit() {
@@ -45,6 +47,11 @@ export class ReportConductComponent implements OnInit {
     this.getReportDetail();
   }
 
+  onSave() {
+    // Handle the form submission logic here
+    console.log('Form submitted:', this.reportDetails);
+  }  
+  
   getReportDetail(): void {
     console.log('Calling Report Details!');
     const headers = this.authService.getHeaders();
@@ -60,5 +67,7 @@ export class ReportConductComponent implements OnInit {
 
 
   }
+
+
 
 }
