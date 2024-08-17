@@ -6,6 +6,7 @@ import { AuthService } from '../../_services/auth.service';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { ReportService } from '../../_services/report.service';
+import { InvestigationService } from '../../_services/investigation.service';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
@@ -13,6 +14,8 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EditorComponent } from '@tinymce/tinymce-angular';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-report-conduct',
@@ -35,16 +38,30 @@ export class ReportConductComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private reportService: ReportService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private processService: InvestigationService
   ) {
     this.reportId = this.route.snapshot.params['id'];
     this.reportDetails = this.route.snapshot.params['json_string'];
-    this.investigationJson = this.route.snapshot.params
   }
 
   ngOnInit() {
     console.log('In the investigation details');
-    this.getReportDetail();
+    // -- Get the json values of the investigation first, and then the process.
+    this.getReportDetail().subscribe(
+      (reportDetails) => {
+        this.reportDetails = reportDetails;
+        if (this.reportDetails.investigationId) {
+          this.getProcessSteps();
+        }
+        else {
+          console.error("investgation ID is missing")
+        }
+      },
+      (error) => {
+        console.error('Error fetching investigation details:', error)
+      }
+    );
   }
 
   onSave() {
@@ -52,22 +69,24 @@ export class ReportConductComponent implements OnInit {
     console.log('Form submitted:', this.reportDetails);
   }  
   
-  getReportDetail(): void {
-    console.log('Calling Report Details!');
+  getProcessSteps(): void {
+    console.log('Getting the process steps of Investigation ID', this.reportDetails.investigationId);
     const headers = this.authService.getHeaders();
-    this.reportService.getReport(this.reportId, headers).subscribe(
+    this.processService.getInvestigationSteps(this.reportDetails.investigationId, headers).subscribe(
       (data) => {
-        this.reportDetails = data;
-        console.log('Report Details:', data);
+        this.investigationJson = data;
+        console.log('Process Details:', data);
       },
       (error) => {
-        console.error('Error fetching report details:', error);
+        console.error('Error fetching process details:', error);
       }
-    );
-
-
+    )
   }
-
-
+  
+  getReportDetail(): Observable<any> {
+    console.log('Calling Report Details!');
+    const headers = this.authService.getHeaders();
+    return this.reportService.getReport(this.reportId, headers);
+  }
 
 }
