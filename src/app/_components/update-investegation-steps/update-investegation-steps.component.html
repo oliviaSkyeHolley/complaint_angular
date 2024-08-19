@@ -1,23 +1,15 @@
-<!-- <p>update-investegation-steps works!</p>
-<div class="container" [style] = "{'padding': '250px'}">
-    <h2>Rearrange Questions</h2>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div *ngFor="let question of investigationSteps" class="example-box" cdkDrag (click)="openEditDialog(question)">
-          {{ question.description }}
-        </div>
-      </div>
-      
-  </div> -->
-  <div class="top-container">
-    <h2>{{investigationDetails.label}}</h2>
-    <h3>Edit Investigation Details</h3>
 
-    <button [routerLink]="['/investigation/detail', investigationId]">Go Back</button>
+  <div class="top-container">
+
+    <button *ngIf="changeDetected" mat-fab extended (click)="saveChanges()" class="save-button">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
   
   </div>
 
   <mat-table #table [dataSource]="investigationSteps" class="mat-elevation-z8" cdkDropList 
-  cdkDropListData="dataSource">
+  cdkDropListData="investigationSteps" (cdkDropListDropped)="drop($event)">
 
     <ng-container matColumnDef="id" sticky>
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -46,17 +38,28 @@
         <span *ngIf = "step.required === '0'">No</span>
       </mat-cell>
     </ng-container>
-  
+    <!-- Logic Column -->
+    <ng-container matColumnDef="logic">
+      <mat-header-cell *matHeaderCellDef> Logic </mat-header-cell>
+      <mat-cell *matCellDef="let step"> 
+        <span *ngIf = "step.conditions.length === 0">No</span>
+        <span *ngIf = "step.conditions.length !== 0">Yes</span>
+      </mat-cell>
+    </ng-container>
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
-  
-      <mat-cell *matCellDef="let element">
-        <button >Delete</button>
-        <button>Edit</button>
+      <mat-cell *matCellDef="let step">
+        <button mat-mini-fab class="action-button" (click) = "openEditDialog(step)">
+          <mat-icon>edit</mat-icon>   
+        </button>
+        <button mat-mini-fab class="action-button" (click)="deleteStep(step.stepUuid)">
+          <mat-icon>delete</mat-icon>   
+        </button> 
+
       </mat-cell>
     </ng-container>
   
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row" ></mat-row>
   </mat-table>

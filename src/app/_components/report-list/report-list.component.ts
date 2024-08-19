@@ -100,9 +100,16 @@ export class ReportListComponent {
 
     console.log(id)
     this.reportService.deleteReport(id).subscribe({
-      next: (data) => this.reports = data,
-      error: (err) => console.error('Error fetching reports', err)
+      next: (response) => {
+        console.log("Deleted the report");
+        this.getReportList();
+        
+      },
+      error: (err) => {
+        console.error('Error fetching reports', err)
+      }
     })
+
 
   }
 

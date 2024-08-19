@@ -5,12 +5,14 @@ import { CommonModule } from "@angular/common";
 import {  RouterLink } from '@angular/router';
 import { ListOfInvestigation } from "../../_classes/list-of-investigations";
 import { InvestigationService } from "../../_services/investigation.service";
+import { MatButton } from '@angular/material/button';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { AddInvestigationDialogComponent } from '../dialog-components/add-investigation-dialog/add-investigation-dialog.component';
 import { MatDialog} from '@angular/material/dialog';
 import { DuplicateInvestigationDialogComponent } from '../dialog-components/duplicate-investigation-dialog/duplicate-investigation-dialog.component';
 import { Step } from '../../_classes/step';
+import { UpdateInvestigationDialogComponent } from '../dialog-components/update-investigation-dialog/update-investigation-dialog.component';
 @Component({
   selector: 'app-investigation-list',
   standalone: true,
@@ -24,7 +26,7 @@ import { Step } from '../../_classes/step';
 export class InvestigationListComponent implements OnInit {
   investigations: ListOfInvestigation[] = [];
   step:Step[] = [];
-  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'actions'];
+  displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'updatedTime', 'actions'];
 
   constructor(private http: HttpClient, private authService: AuthService, private investigationService: InvestigationService, private dialog: MatDialog) { }
 
@@ -41,30 +43,48 @@ export class InvestigationListComponent implements OnInit {
   }
 
   addInvestigation(): void {
-
-
     const dialogRef = this.dialog.open(AddInvestigationDialogComponent, {
       width: '400px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
-        const formattedData = {
-          label: result.label,
-          revision_status: result.revision_status, 
-          json_string: JSON.stringify({ label: result.label,steps: this.step })
-        }
 
-        this.investigationService.addInvestigation(formattedData).subscribe({
+        this.investigationService.createInvestigation(result).subscribe({
           next: (response) => {
-            console.log('Successfully added investigation:', formattedData);
+            console.log('Successfully added investigation:', result);
             this.getInvestigationList();
           },
           error: (err) => {
             console.error('Error adding investigation:', err);
           }
         });
+      }
+    });
+  }
+
+  updateInvestigation(investigation: any): void {
+
+    const dialogRef = this.dialog.open(UpdateInvestigationDialogComponent, {
+      width: '400px', data: {
+        investigation: investigation,
+
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.investigationService.updateInvestigation(investigation.entityId, result).subscribe({
+          next: (response) => {
+            console.log('Successfully updated investigation:', result);
+            this.getInvestigationList();
+          },
+          error: (err) => {
+            console.error('Error updating investigation:', err);
+          }
+        });
+      }else{
+
       }
     });
   }
@@ -79,17 +99,11 @@ export class InvestigationListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log("This is result", result)
       if (result) {
-        const formattedData = {
-          label: result.label,
-          revision_status: result.revision_status, 
-          json_string: result.json_string
-          //have to add the remeining data fields
-        }
-        this.investigationService.addInvestigation(formattedData).subscribe({
+
+        this.investigationService.duplicateInvestigation(result).subscribe({
           next: (response) => {
-            console.log('Successfully duplicated investigation:', formattedData);
+            console.log('Successfully duplicated investigation:', result);
             this.getInvestigationList();
           },
           error: (err) => {
@@ -103,10 +117,13 @@ export class InvestigationListComponent implements OnInit {
   }
   deleteInvestigation(id: string): void {
 
-    console.log(id)
     this.investigationService.deleteInvestigation(id).subscribe({
-      next: (data) => this.investigations = data,
-      error: (err) => console.error('Error fetching investigations', err)
+      next: (response) => {
+        this.getInvestigationList();
+      },
+      error: (err) => {
+        console.error('Error deleting investigation:', err);
+      }
     })
 
   }
