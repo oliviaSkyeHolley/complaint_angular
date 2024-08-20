@@ -1,5 +1,5 @@
 export class Report {
-  constructor( entityId: number, label: string,   investigationId: number) {
+  constructor( entityId: number, label: string, investigationId: number) {
     this.entityId = entityId;
     this.label = label;
     this.investigationId = investigationId;
@@ -15,11 +15,8 @@ export class Report {
    */
   label: string;
 
- 
   /**
-   * A list of steps 
+   * Linked Investigation
    */
   investigationId: number;
 }
-
-

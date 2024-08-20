@@ -16,13 +16,12 @@ export const environment = {
     updateInvestigationStepURL: 'http://complaintdrupal.local/api/update-investigation-step-resource/{investigationId}/step/{stepUuid}',
     updateInvestigationStepOrderURL: 'http://complaintdrupal.local/api/update-investigation-step-order/',
 
-
-
-
+    
     reportListURL: 'http://complaintdrupal.local/rest/report/list',
     addReportListURL: 'http://complaintdrupal.local/rest/report/create',
     deleteReportURL: 'http://complaintdrupal.local/rest/report/delete/',
     getReportURL: 'http://complaintdrupal.local/rest/report/list/',
+    updateReportURL: 'http://complaintdrupal.local/rest/report/update/',
 
   
     
