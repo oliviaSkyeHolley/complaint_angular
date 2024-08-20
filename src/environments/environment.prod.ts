@@ -22,6 +22,7 @@ export const environment = {
     addReportListURL: 'http://complaintdrupal.local/rest/report/create',
     deleteReportURL: 'http://complaintdrupal.local/rest/report/delete/',
     getReportURL: 'http://complaintdrupal.local/rest/report/list/',
+    updateReportURL: 'http://complaintdrupal.local/rest/report/update/',
 
   
     

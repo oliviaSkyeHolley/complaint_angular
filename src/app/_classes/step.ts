@@ -6,7 +6,7 @@ export class Step {
 
 
 
-  constructor(id: number, stepUuid: string, displayType: string,  required: string, description: string, choices: StepChoice[], conditions: Condition[]) {
+  constructor(id: number, stepUuid: string, displayType: string,  required: string, description: string, choices: StepChoice[], conditions: Condition[], isCompleted: boolean, isVisible: boolean, answer: string, textAnswer: string) {
 
     this.id = id;
     this.stepUuid = stepUuid;
@@ -15,6 +15,10 @@ export class Step {
     this.required = required;
     this.choices = choices;
     this.conditions = conditions;
+    this.isCompleted = isCompleted;
+    this.isVisible = isVisible;
+    this.answer = answer;
+    this.textAnswer = textAnswer;
   }
 
 
@@ -54,4 +58,24 @@ export class Step {
    * An array of conditions which includes the skip logic conditions.
    */
   conditions: Condition[];
+
+  /**
+   * Should the step be visible (according to the logic)?
+   */
+  isVisible: boolean;
+
+  /**
+   * Has the step been filled?
+   */
+  isCompleted: boolean;
+
+  /**
+   * Holds answers
+   */
+  answer: string;
+
+  /**
+   * Holds answers to the "more details" tiny MCE WISYSWIG
+   */
+  textAnswer: string;
 }

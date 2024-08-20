@@ -106,6 +106,10 @@ export class AddInvestigationStepDialogComponent {
       const newStepData = {
         id: this.data.length + 1,
         stepUuid: this.uuidService.generateUuid(),
+        answer: '',
+        textAnswer: '',
+        isVisible:false,
+        isCompleted:false,
         ...this.form.value
       }
       this.dialogRef.close(newStepData);

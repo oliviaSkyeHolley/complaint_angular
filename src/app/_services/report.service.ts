@@ -31,4 +31,11 @@ export class ReportService {
   getReport(reportId: string, headers: HttpHeaders): Observable<Report> {
     return this.http.get<Report>(`${environment.getReportURL}${reportId}?_format=json`, { headers });
   }
+
+  updateReport(reportId: string, newSteps: any): Observable<Report> {
+    console.log(reportId);
+    console.log(`${environment.updateReportURL}${reportId}`);
+    const headers =this.authService.getHeaders();
+    return this.http.patch<Report>(`${environment.updateReportURL}${reportId}`, newSteps, { headers });
+  }
 }

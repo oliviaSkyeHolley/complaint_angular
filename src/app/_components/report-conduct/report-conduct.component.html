@@ -1,85 +1,81 @@
-
-<form (ngSubmit)="onSave()" #reportForm="ngForm">
-
-  <hr />
-  <div class="col-lg-7 toolbar-title" *ngIf="reportDetails">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">Investigation Title</span>
-      </div>
-      <input type="text" class="form-control" id="surveyTitle" [value]="reportDetails.label" style="font-weight: bold">
-    </div>
-  </div>
-
-  <br>
-
-  <!--For loop that renders each of the steps-->
-  <div *ngFor="let steps of investigationJson?.steps; let i = index" class="assessment-item" cdkDrag>
-    <div class="title-div">
-      <div class="title-div-child1">
-        <p style="font-weight: bold">Step {{i + 1}}</p>
-      </div>
-      <div class="title-div-child2">
-        <span class="form-control">
-          <mat-label>{{steps.description}}</mat-label>
-        </span>
-      </div>
-      <!--For when the display type is Radio&Text-->
-      <div *ngIf="steps.displayType === 'radio&text'">
-        <div *ngFor="let choices of steps?.choices; let j = index" class="steps" cdkDrag>
-          <span class="form-control">
-            <mat-radio-button [value]="choices.description">{{choices.description}}</mat-radio-button>
+<br /><br />
+<mat-sidenav-container autosize>
+  <mat-sidenav [opened]="true" mode="side" [style.width]="sideNavWidth()">
+    <mat-nav-list>
+      <div *ngFor="let steps of reportDetails?.steps; let i = index" >
+        <div *ngIf="steps.isVisible">
+        <a (click)="getStep(steps.stepUuid)" [ngClass]="{'active-step': oneStep?.stepUuid === steps.stepUuid}">
+          <span>
+            <ng-content select="[icon]">
+              <button mat-mini-fab  [ngClass]="{'completed-step': steps.isCompleted}">{{steps.id}}</button>
+            </ng-content>
           </span>
-        </div>
-        <br />
-        <b>Please provide further details. </b><i>Optional</i><br /><br />
-            <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [init]="init" />
-      </div>
-
-      <!--For when the display type is radio-->
-      <div *ngIf="steps.displayType === 'radio'">
-        <div *ngFor="let choices of steps?.choices; let j = index" class="steps" cdkDrag>
-          <span class="form-control">
-            <mat-radio-button [value]="choices.description">{{choices.description}}</mat-radio-button>
+          <span class="text-container">
+            <ng-content><span>Step {{i + 1}} - {{steps.description}}</span></ng-content>
           </span>
-        </div>
+        </a>
+        <mat-divider></mat-divider>
+      </div>
+      </div>
+    </mat-nav-list>
+    <!-- Toggle button as an arrow -->
+    <button mat-icon-button class="toggle-button" (click)="collapsed.set(!collapsed())">
+      <mat-icon>{{ !collapsed() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+    </button>
+  </mat-sidenav>
+  <mat-sidenav-content class="content" [style.margin-left]="sideNavWidth()">
+    <div *ngIf="oneStep">
+      <h2>Step {{oneStep.id}} </h2>
+      <p>{{oneStep.description}}</p>
+      <!-- Radio & Text Boxes -->
+      <div *ngIf="oneStep.displayType === 'radio&text'">
+        <mat-radio-group  [(ngModel)]="oneStep.answer"  (change)="onRadioChange($event, oneStep)">
+          <div *ngFor="let choices of oneStep?.choices; let j = index" class="steps">
+            <span class="form-control">
+              <mat-radio-button  [value]="choices.choiceUuid">{{choices.description}}</mat-radio-button>
+            </span>
+          </div>
+        </mat-radio-group>
         <br />
+        <b>Please provide further details.</b><i>Optional</i><br /><br />
+        <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [(ngModel)]="oneStep.textAnswer" [init]="init"></editor>
+        <app-file-upload></app-file-upload>
+      </div>
+      <!-- Radio -->
+      <div *ngIf="oneStep.displayType === 'radio'">
+        <mat-radio-group [(ngModel)]="oneStep.answer"  (change)="onRadioChange($event, oneStep)">
+          <div *ngFor="let choices of oneStep?.choices; let j = index" class="steps">
+            <span class="form-control">
+              <mat-radio-button  [value]="choices.choiceUuid">{{choices.description}}</mat-radio-button>
+            </span>
+          </div>
+        </mat-radio-group>
       </div>
 
-      <!--For when the display type is Checkbox&Text-->
-      <div *ngIf="steps.displayType === 'checkbox&text'">
-        <div *ngFor="let choices of steps?.choices; let j = index" class="steps" cdkDrag>
-          <span class="form-control">
-            <mat-checkbox [value]="choices.description">{{choices.description}}</mat-checkbox>
-          </span>
+        <!-- Checkbox and Text -->
+        <div *ngIf="oneStep.displayType === 'checkbox&text'">
+          <div *ngFor="let choices of oneStep?.choices; let j = index">
+            <span class="form-control">
+              <mat-checkbox
+            [name]="'assessment_' + choices.choiceUuid"
+            [id]="'choice_' + choices.id"
+            [(ngModel)]="choices.selected"
+            (ngModelChange)="onCheckboxChange(oneStep, choices)"
+          >{{choices.description}}</mat-checkbox>
+              <!--<mat-checkbox [(ngModel)]="oneStep.answer" [value]="choices.choiceUuid" class="steps">{{choices.description}}</mat-checkbox> -->
+            </span>
+          </div>
+          <br />
+          <b>Please provide further details. </b><i>Optional</i><br /><br />
+          <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [(ngModel)]="oneStep.textAnswer" [init]="init" />
+          <app-file-upload></app-file-upload>
         </div>
+  
+        <!-- Checkbox and Text -->
         <br />
-        <b>Please provide further details. </b><i>Optional</i><br /><br />
-        <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [init]="init" />
-      </div>
-
-      <!--For when the display type is Checkbox-->
-      <div *ngIf="steps.displayType === 'checkbox'">
-        <div *ngFor="let choices of steps?.choices; let j = index" class="steps" cdkDrag>
-          <span class="form-control">
-            <mat-checkbox [value]="choices.description">{{choices.description}}</mat-checkbox>
-          </span>
-        </div>
-      </div>
-
-      <!--For when the display type is textbox-->
-      <div *ngIf="steps.displayType === 'textbox'">
-        <br />
-        <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [init]="init" />
-      </div>
       
     </div>
-    <hr />
-  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-  <button type="submit" class="btn btn-primary">Save</button>
-</form>
-
-<pre>{{ investigationJson | json }}</pre>
-
-<pre>{{ reportDetails | json}}</pre>
+<button (click)="onSave()" type="submit" class="btn btn-primary">Save</button>
