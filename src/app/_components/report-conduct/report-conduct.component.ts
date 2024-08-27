@@ -7,14 +7,12 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { ReportService } from '../../_services/report.service';
 import { InvestigationService } from '../../_services/investigation.service';
-import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { EditorComponent } from '@tinymce/tinymce-angular';
-import { Observable } from 'rxjs';
 import { Step } from '../../_classes/step';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
+import { Report } from '../../_classes/report';
 
 
 
@@ -36,6 +35,7 @@ import { FileUploadComponent } from '../file-upload/file-upload.component';
 })
 
 export class ReportConductComponent implements OnInit {
+  report: Report | undefined;
   reportId: string;
   reportDetails: any;
   investigationJson: any;
@@ -57,10 +57,11 @@ export class ReportConductComponent implements OnInit {
     private reportService: ReportService,
     private dialog: MatDialog,
     private processService: InvestigationService
+   
   ) {
     this.reportId = this.route.snapshot.params['id'];
     this.reportDetails = this.route.snapshot.params['json_string'];
-
+    
   }
 
   ngOnInit() {
@@ -88,8 +89,8 @@ export class ReportConductComponent implements OnInit {
         if (this.reportDetails.steps) {
           this.reportDetails.steps[0].isVisible = true;
           this.oneStep = this.reportDetails.steps[0];
-
-
+          this.reportService.setDocumentDetails(this.reportDetails.entityId, this.reportDetails.reportLabel,this.oneStep.id);
+ 
         }
       },
       (error) => {
@@ -104,6 +105,9 @@ export class ReportConductComponent implements OnInit {
     for (const step of this.reportDetails.steps) {
       if (step && step.stepUuid == stepUuid) {
         this.oneStep = step;
+        this.reportService.setDocumentDetails(this.reportDetails.entityId, this.reportDetails.label,this.oneStep.id);
+        this.report = new Report(this.oneStep.entityId, this.oneStep.reportLabel, this.oneStep.investigationId);
+
       }
     }
     return [];
