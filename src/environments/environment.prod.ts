@@ -1,33 +1,33 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://complaintdrupal.local/oauth/token',
-  csrfTokenUrl: 'http://complaintdrupal.local/session/token',
+  apiUrl: 'https://investigationb.corporatememory.com.au/oauth/token',
+  csrfTokenUrl: 'https://investigationb.corporatememory.com.au/session/token',
 
   //Investigation
-  getInvestigationListURL: 'http://complaintdrupal.local/rest/investigation/list',
-  createInvestigationURL: 'http://complaintdrupal.local/rest/create-investigation-resource',
-  duplicateInvestigationURL: 'http://complaintdrupal.local/rest/duplicate-investigation-resource',
-  updateInvestigationURL: 'http://complaintdrupal.local/api/update-investigation-resource/',
-  deleteInvestigationURL: 'http://complaintdrupal.local/rest/delete-investigation-resource/',
+  getInvestigationListURL: 'https://investigationb.corporatememory.com.au/rest/investigation/list',
+  createInvestigationURL: 'https://investigationb.corporatememory.com.au/rest/create-investigation-resource',
+  duplicateInvestigationURL: 'https://investigationb.corporatememory.com.au/rest/duplicate-investigation-resource',
+  updateInvestigationURL: 'https://investigationb.corporatememory.com.au/api/update-investigation-resource/',
+  deleteInvestigationURL: 'https://investigationb.corporatememory.com.au/rest/delete-investigation-resource/',
   
   //Investigation Steps
-  getInvestigationURL: 'http://complaintdrupal.local/api/get-investigation-resource/',
-  addInvestigationStepURL: 'http://complaintdrupal.local/api/add-investigation-step-resource/',
-  deleteInvestigationStepURL: 'http://complaintdrupal.local/api/delete-investigation-step-resource/{investigationId}/step/{stepUuid}',
-  updateInvestigationStepURL: 'http://complaintdrupal.local/api/update-investigation-step-resource/{investigationId}/step/{stepUuid}',
-  updateInvestigationStepOrderURL: 'http://complaintdrupal.local/api/update-investigation-step-order/',
+  getInvestigationURL: 'https://investigationb.corporatememory.com.au/api/get-investigation-resource/',
+  addInvestigationStepURL: 'https://investigationb.corporatememory.com.au/api/add-investigation-step-resource/',
+  deleteInvestigationStepURL: 'https://investigationb.corporatememory.com.au/api/delete-investigation-step-resource/{investigationId}/step/{stepUuid}',
+  updateInvestigationStepURL: 'https://investigationb.corporatememory.com.au/api/update-investigation-step-resource/{investigationId}/step/{stepUuid}',
+  updateInvestigationStepOrderURL: 'https://investigationb.corporatememory.com.au/api/update-investigation-step-order/',
 
   //Report
-  reportListURL: 'http://complaintdrupal.local/rest/report/list',
-  addReportListURL: 'http://complaintdrupal.local/rest/report/create',
-  deleteReportURL: 'http://complaintdrupal.local/rest/report/delete/',
-  getReportURL: 'http://complaintdrupal.local/rest/report/list/',
-  updateReportURL: 'http://complaintdrupal.local/rest/report/update/',
+  reportListURL: 'https://investigationb.corporatememory.com.au/rest/report/list',
+  addReportListURL: 'https://investigationb.corporatememory.com.au/rest/report/create',
+  deleteReportURL: 'https://investigationb.corporatememory.com.au/rest/report/delete/',
+  getReportURL: 'https://investigationb.corporatememory.com.au/rest/report/list/',
+  updateReportURL: 'https://investigationb.corporatememory.com.au/rest/report/update/',
 
   //Document Upload
-  postUploadFileURL: 'http://complaintdrupal.local/file/upload/investigation_documents/_/file',
-  addDocument: 'http://complaintdrupal.local/rest/investigation/document/post/',
-  getDocumentList: 'http://complaintdrupal.local//rest/investigation/document/get/',
+  postUploadFileURL: 'https://investigationb.corporatememory.com.au/file/upload/investigation_documents/_/file',
+  addDocument: 'https://investigationb.corporatememory.com.au/rest/investigation/document/post/',
+  getDocumentList: 'https://investigationb.corporatememory.com.au//rest/investigation/document/get/',
 
   clientId: 'your-client-id',
   clientSecret: 'your-client-secret'
