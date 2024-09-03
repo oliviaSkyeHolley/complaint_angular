@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDivider } from '@angular/material/divider';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { Report } from '../../_classes/report';
+import {MatTooltip} from "@angular/material/tooltip";
 
 
 
@@ -29,7 +30,7 @@ import { Report } from '../../_classes/report';
 @Component({
   selector: 'app-report-conduct',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatSidenavModule, MatDivider, CommonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatRadioModule, EditorComponent, FormsModule, MatCheckbox, FileUploadComponent],
+  imports: [MatButtonModule, MatIconModule, MatSidenavModule, MatDivider, CommonModule, MatToolbarModule, MatSidenavModule, MatListModule, MatRadioModule, EditorComponent, FormsModule, MatCheckbox, FileUploadComponent, MatFormField, MatLabel, MatTooltip],
   templateUrl: './report-conduct.component.html',
   styleUrls: ['./report-conduct.component.scss']
 })
@@ -57,11 +58,11 @@ export class ReportConductComponent implements OnInit {
     private reportService: ReportService,
     private dialog: MatDialog,
     private processService: InvestigationService
-   
+
   ) {
     this.reportId = this.route.snapshot.params['id'];
     this.reportDetails = this.route.snapshot.params['json_string'];
-    
+
   }
 
   ngOnInit() {
@@ -90,7 +91,7 @@ export class ReportConductComponent implements OnInit {
           this.reportDetails.steps[0].isVisible = true;
           this.oneStep = this.reportDetails.steps[0];
           this.reportService.setDocumentDetails(this.reportDetails.entityId, this.reportDetails.reportLabel,this.oneStep.id);
- 
+
         }
       },
       (error) => {

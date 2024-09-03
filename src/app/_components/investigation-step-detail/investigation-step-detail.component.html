@@ -28,9 +28,9 @@
     <div *ngIf="investigationStep.displayType != 'textbox'">
         <h4>Choices</h4>
         <div *ngFor="let choice of investigationStep.choices">
-          
+
             <p><span>{{choice.id}}. </span>{{choice.description}}</p>
-           
+
         </div>
     </div>
 </div>
@@ -45,3 +45,4 @@
         </div>
     </div>
 </mat-dialog-content>
+

@@ -1,4 +1,6 @@
 <br /><br />
+
+
 <mat-sidenav-container autosize>
   <mat-sidenav [opened]="true" mode="side" [style.width]="sideNavWidth()">
     <mat-nav-list>
@@ -11,8 +13,10 @@
               </ng-content>
             </span>
             <span class="text-container">
-              <ng-content>
-                <span>Step {{step.id}} - {{step.description}}</span>
+              <ng-content >
+                <!-- hover component -->
+                <span [matTooltip]="step.description" matTooltipClass="title-hover"
+                      aria-label="Button that displays a tooltip in various positions">Step {{step.id}} - {{step.description}}</span>
               </ng-content>
             </span>
           </a>
@@ -42,7 +46,14 @@
         <br />
         <b>Please provide further details.</b><i>Optional</i><br /><br />
         <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [(ngModel)]="oneStep.textAnswer" [init]="init"></editor>
-        <app-file-upload></app-file-upload>
+        <app-file-upload>
+        </app-file-upload>
+        <!-- attach note to files LOOK AT THIS LATER -->
+          <mat-label></mat-label>
+          <textarea matInput></textarea>
+        <br />
+        <!-- go to next step -->
+        <button class="continue" type="submit"> Continue </button>
       </div>
       <!-- Radio -->
       <div *ngIf="oneStep.displayType === 'radio'">
@@ -72,13 +83,17 @@
           <b>Please provide further details. </b><i>Optional</i><br /><br />
           <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [(ngModel)]="oneStep.textAnswer" [init]="init" />
           <app-file-upload></app-file-upload>
+          <!-- go to next step still need to develop this more -->
+          <button class="continue" type="submit"> Continue </button>
         </div>
-  
+
         <!-- Checkbox and Text -->
         <br />
-      
+
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
 <button mat-button color="primary" (click)="onSave()" type="submit" class="btn btn-primary">Save</button>
+
+
