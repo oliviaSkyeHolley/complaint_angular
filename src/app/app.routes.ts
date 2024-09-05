@@ -7,9 +7,11 @@ import { UpdateInvestegationStepsComponent } from './_components/update-investeg
 import { ReportConductComponent } from './_components/report-conduct/report-conduct.component';
 import { ReportListComponent } from './_components/report-list/report-list.component';
 import { GenerateReportComponent } from './_components/generate-report/generate-report.component';
+import {HomeComponent} from "./_components/home/home.component";
 export const appRoutes: Routes = [
   //{ path: '', redirectTo: '/investigation/list', pathMatch: 'full' },
   { path: 'user/login', component: AuthenticateComponent },
+  { path: 'home', component: HomeComponent},
   { path: 'investigation/list', component: InvestigationListComponent, canActivate: [AuthGuard] },
   { path: 'investigation/detail/:id', component: ManageInvestigationDetailsComponent , canActivate: [AuthGuard] },
   { path: 'investigation/detail/update/:id', component: UpdateInvestegationStepsComponent, canActivate: [AuthGuard] },

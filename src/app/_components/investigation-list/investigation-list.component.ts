@@ -30,11 +30,13 @@ export class InvestigationListComponent implements OnInit {
 
   constructor(private http: HttpClient, private authService: AuthService, private investigationService: InvestigationService, private dialog: MatDialog) { }
 
-  ngOnInit(): void {
+
+
+  /*ngOnInit(): void {
     console.log('In the investigation list');
     this.getInvestigationList();
   }
-
+*/
   getInvestigationList(): void {
     this.investigationService.getInvestigationList().subscribe({
       next: (data) => this.investigations = data,
@@ -126,6 +128,9 @@ export class InvestigationListComponent implements OnInit {
       }
     })
 
+  }
+
+  ngOnInit(): void {
   }
 
 

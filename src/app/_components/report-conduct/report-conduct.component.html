@@ -9,7 +9,9 @@
           <a  (click)="getStep(step.stepUuid)" [ngClass]="{'active-step': oneStep?.stepUuid === step.stepUuid}">
             <span>
               <ng-content select="[icon]">
-                <button mat-mini-fab [ngClass]="{'completed-step': step.isCompleted}">{{step.id}}</button>
+                <!-- adding hover to the side bar when closed -->
+                <button mat-mini-fab [ngClass]="{'completed-step': step.isCompleted}" [matTooltip]="step.description" matTooltipClass="title-hover"
+                        aria-label="Button that displays a tooltip in various positions">{{step.id}}</button>
               </ng-content>
             </span>
             <span class="text-container">
