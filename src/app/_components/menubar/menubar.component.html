@@ -2,9 +2,14 @@
 <div class="menubar">
        <!-- <a routerLink="/">Home</a> -->
         <!-- adding in the actual home page -->
-        <a routerLink="/home">TEST landing page 4 Investigator</a>
+        <a routerLink="/home">Home</a>
         <!-- <a routerLink="/user/login">Login</a> -->
         <a routerLink="/investigation/list">Investigation Builder</a>
         <a routerLink="/report/list">Conduct an Investigation</a>
         <a routerLink="/generate/report">Generate Report</a>
+  <button (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</button>
 </div><br />
+<br>
+<div class = "menubar">
+  <hr>
+</div>
