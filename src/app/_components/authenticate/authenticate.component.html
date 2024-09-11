@@ -2,16 +2,16 @@
 <div class="div-wrapper">
 <div class="div-container">
   <div class="title-container">
-  <h2>LOGIN</h2>
+  <h2 class="login">LOGIN</h2>
 </div>
 <div class="form-container">
-  <form (ngSubmit)="login()" class="c">
+  <form (ngSubmit)="login()" class="c" id="enter-form">
     <p>Username</p>
-    <mat-form-field class="username-input">
+    <mat-form-field class="username-input" appearance="outline">
       <input matInput  type="text" id="username" placeholder="username"[(ngModel)]="username" name="username" required>
     </mat-form-field>
     <p>Password</p>
-    <mat-form-field class="password-input">
+    <mat-form-field class="password-input" appearance="outline">
       <input matInput  type="password" id="password" placeholder="********" [(ngModel)]="password" name="password" required>
     </mat-form-field>
     <br />

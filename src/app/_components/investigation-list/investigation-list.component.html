@@ -1,8 +1,8 @@
 <div>
   <!--<button (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</button> -->
   <div class="top-container">
-    <h2>Investigation List</h2>
-    <button mat-button class="addbutton" (click)="addInvestigation()">+Add Investigation</button>
+    <h2 class="Tile">Investigation List</h2>
+    <button mat-button class="addbutton" (click)="addInvestigation()" >+ Add Investigation</button>
   </div>
 
 
@@ -10,7 +10,7 @@
 
 <mat-table #table [dataSource]="investigations" class="mat-elevation-z8">
 
-  <ng-container matColumnDef="entityid" sticky>
+  <ng-container  class='table' matColumnDef="entityid" sticky>
     <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
     <mat-cell *matCellDef="let element">{{element.entityId}}</mat-cell>
   </ng-container>

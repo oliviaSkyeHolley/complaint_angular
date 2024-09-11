@@ -11,6 +11,7 @@
 .menubar a:hover{
     background-color: rgb(212, 212, 212);
     color: rgb(81, 81, 104);
+    border-radius: 5px;
 }
 
 button{
@@ -31,6 +32,7 @@ button:hover {
   color: white !important;
   transition: 0.7s;
   font-size: 17px;
+
 }
 
 hr {

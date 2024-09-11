@@ -13,10 +13,13 @@ import { MatDialog} from '@angular/material/dialog';
 import { DuplicateInvestigationDialogComponent } from '../dialog-components/duplicate-investigation-dialog/duplicate-investigation-dialog.component';
 import { Step } from '../../_classes/step';
 import { UpdateInvestigationDialogComponent } from '../dialog-components/update-investigation-dialog/update-investigation-dialog.component';
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 @Component({
   selector: 'app-investigation-list',
   standalone: true,
-  imports: [ CommonModule, RouterLink, MatIconModule, MatTable, MatTableModule],
+  imports: [CommonModule, RouterLink, MatIconModule, MatTable, MatTableModule, MatFormField, MatInput, ReactiveFormsModule, FormsModule],
   templateUrl: './investigation-list.component.html',
   styleUrl: './investigation-list.component.scss'
 

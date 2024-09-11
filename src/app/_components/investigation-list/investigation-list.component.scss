@@ -1,24 +1,51 @@
 table {
     width: 100%;
   }
+
+.table{
+ background-color: #748eb3;
+}
+
   .top-container{
     width: 100%;
    padding-top: 1%;
    padding-bottom: 1%;
    padding-left: 10px;
-    background-color: rgb(243, 243, 243);
-    margin-bottom: 20px;
+   background-color: rgb(243, 243, 243);
+   margin-bottom: 20px;
+   display: flex;
   }
-  
+
   .addbutton{
     color:#ffff;
-    background-color: #2196F3;
-    border-radius: 5px;
-    width: 200px;
-    height: 50px;
+    background-color: #accbe3;
+    border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
+    border-style: solid;
+    font-color: white;
+    position: absolute;
+    right: 150px;
+    width: 200px;
+    height: 50px;
+
   }
+
+:hover .addbutton{
+  color:#ffff;
+  background-color: #7a9bbf;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-style: solid;
+  font-color: white;
+}
+
   a{
     text-decoration: none;
   }
+
+.Tile{
+  left: 150px;
+  width: 200px;
+}
