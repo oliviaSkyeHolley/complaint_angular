@@ -16,6 +16,7 @@ import { UpdateInvestigationDialogComponent } from '../dialog-components/update-
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 @Component({
   selector: 'app-investigation-list',
   standalone: true,
@@ -32,6 +33,11 @@ export class InvestigationListComponent implements OnInit {
   displayedColumns: string[] = ['entityid', 'label', 'revisionStatus', 'createdTime', 'updatedTime', 'actions'];
 
   constructor(private http: HttpClient, private authService: AuthService, private investigationService: InvestigationService, private dialog: MatDialog) { }
+
+  changeColor() {
+    // set new color here
+    document.documentElement.style.setProperty(`--background-color`, 'red');
+  }
 
 
 
