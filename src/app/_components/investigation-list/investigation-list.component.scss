@@ -2,18 +2,18 @@ table {
     width: 100%;
   }
 
-.table{
- background-color: #748eb3;
-}
 
   .top-container{
     width: 100%;
    padding-top: 1%;
    padding-bottom: 1%;
    padding-left: 10px;
-   background-color: rgb(243, 243, 243);
-   margin-bottom: 20px;
-   display: flex;
+   background-color: white;
+   margin-bottom: 1%;
+   display: inline-flex;
+
+    height: 40px;
+    line-height: 40px;
   }
 
   .addbutton{
@@ -22,10 +22,9 @@ table {
     border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
-    border-style: solid;
-    font-color: white;
+    border-style: none;
     position: absolute;
-    right: 150px;
+    right: 15px;
     width: 200px;
     height: 50px;
 
@@ -37,22 +36,12 @@ table {
   border-radius: 10px;
 }
 
-  /*
+
 .mat-mdc-table{
-    border-collapse: collapse;
-    border-radius: 5em;
-  } */
+  border-radius: 8px;
+  overflow:hidden !important;
+  }
 
-.mat-elevation-z8 {
-
-}
-
-
-/*.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-} */
 
 :hover .addbutton{
   color:#ffff;
@@ -60,7 +49,7 @@ table {
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
-  border-style: solid;
+  border-style: none;
   font-color: white;
 }
 
@@ -70,5 +59,7 @@ table {
 
 .Tile{
   left: 150px;
-  width: 200px;
+  width: 100%;
+  font-size: 35px;
 }
+
