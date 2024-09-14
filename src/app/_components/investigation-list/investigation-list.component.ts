@@ -16,6 +16,9 @@ import { UpdateInvestigationDialogComponent } from '../dialog-components/update-
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-investigation-list',

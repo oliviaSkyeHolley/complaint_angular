@@ -1,3 +1,16 @@
+
+.material-icons{
+  color: #accbe3;
+}
+
+/*.hovering:hover .material-icons{
+  color: #7a9bbf;
+} */
+
+/*:hover .material-icons{
+  color: #7a9bbf;
+} */
+
 table {
     width: 100%;
   }
@@ -16,13 +29,34 @@ table {
     line-height: 40px;
   }
 
-  .addbutton{
+
+
+a:link {
+  color: #65848b;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #374357;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #586d8a;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+
+.addbuttonInvest{
     color:#ffff;
     background-color: #accbe3;
     border-radius: 10px;
     font-size: 18px;
     font-weight: bold;
-    border-style: none;
+    border-color: transparent;
     position: absolute;
     right: 15px;
     width: 200px;
@@ -34,6 +68,7 @@ table {
   background-color: #7a9bbf !important;
   color: white;
   border-radius: 10px;
+  font-size: 16px;
 }
 
 
@@ -43,13 +78,13 @@ table {
   }
 
 
-:hover .addbutton{
+.top-container:hover .addbuttonInvest{
   color:#ffff;
   background-color: #7a9bbf;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
-  border-style: none;
+  border-color: transparent;
   font-color: white;
 }
 

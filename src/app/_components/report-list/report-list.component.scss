@@ -2,10 +2,39 @@ table {
     width: 100%;
   }
 
+a:link {
+  color: #65848b;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #374357;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #586d8a;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+
+.material-icons{
+  color: #accbe3;
+}
+
+/*.hovering:hover .material-icons{
+  color: #7a9bbf;
+}*/
+
+
 .mat-mdc-header-row{
   background-color: #7a9bbf !important;
   color: white;
   border-radius: 10px;
+  font-size: 16px;
 }
 
 .mat-mdc-table{
@@ -43,26 +72,26 @@ table {
   float: right;
 }
 
-.addbutton{
+.addbuttonReport{
   color:#ffff;
   background-color: #accbe3;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
-  border-style: none;
+  border-color: transparent;
   position: absolute;
   right: 15px;
   width: 200px;
   height: 50px;
 }
 
-:hover .addbutton{
+:hover .addbuttonReport{
   color:#ffff;
   background-color: #7a9bbf;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
-  border-style: none;
+  border-color: transparent;
   font-color: white;
 }
 

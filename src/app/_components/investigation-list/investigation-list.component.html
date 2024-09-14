@@ -1,14 +1,14 @@
 
   <!--<button (click)="logout()" *ngIf="authService.isLoggedIn()">Logout</button> -->
   <div class="top-container">
-    <h2 class="Tile">Investigation List</h2>
+        <h2 class="Tile">Investigation List</h2>
    <!-- <form class="example-form">
       <mat-form-field class="example-full-width">
         <mat-label>Favorite food</mat-label>
         <input matInput placeholder="Ex. Pizza" value="Sushi">
       </mat-form-field>
     </form> -->
-    <button mat-button class="addbutton" (click)="addInvestigation()" >+ Add Investigation</button>
+        <button mat-button class="addbuttonInvest" (click)="addInvestigation()" >+ Add Investigation</button>
   </div>
 
 
@@ -50,10 +50,18 @@
   <ng-container matColumnDef="actions">
     <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
 
-    <mat-cell *matCellDef="let element">
-      <button (click)="duplicateInvestigation(element)">Duplicate</button>
-      <button (click)="deleteInvestigation(element.entityId)">Delete</button>
-      <button (click)="updateInvestigation(element)">Edit</button>
+    <mat-cell class="hovering" *matCellDef="let element">
+      <!--<mat-icon class="mat-icon-rtl-mirror" svgIcon="thumb-up"></mat-icon> -->
+      <!--<button (click)="duplicateInvestigation(element)">Duplicate</button> -->
+      <!--<mat-icon (click)="duplicateInvestigation(element)">
+        content-copy
+      </mat-icon> -->
+      <i class="material-icons" (click)="duplicateInvestigation(element)">content_copy</i>
+      <i class="material-icons" (click)="deleteInvestigation(element.entityId)">delete</i>
+      <i class="material-icons" (click)="updateInvestigation(element)">edit</i>
+
+      <!--<button (click)="deleteInvestigation(element.entityId)">Delete</button>
+      <button (click)="updateInvestigation(element)">Edit</button> -->
     </mat-cell>
   </ng-container>
 
