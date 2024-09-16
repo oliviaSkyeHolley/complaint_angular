@@ -1,8 +1,70 @@
 .mat-dialog-content {
-    width: 100%; 
+    width: 100%;
   }
-  
-  
+
+
   mat-form-field {
-    width: 100%; 
+    width: 100%;
   }
+
+/*.RadioOp{
+  width: 50%;
+}*/
+
+.mat-dialog-title{
+    font-size: 35px;
+  }
+
+.delete{
+  /*position: absolute;
+  right: 90px;
+  height: 50%; */
+  position: absolute;
+  right:    0;
+  bottom:   9%;
+}
+
+.deleteCondition {
+  position: absolute;
+  right:    0;
+  bottom:   50%;
+}
+
+.title{
+  font-size: 20px;
+  color: black;
+}
+
+.addRadio{
+  background-color: #accbe3;
+  color: white !important;
+}
+
+.addRadio:hover{
+  background-color: #7a9bbf;
+}
+
+.addCondition{
+  background-color: #accbe3;
+  color: white !important;
+}
+
+.addCondition:hover{
+  background-color: #7a9bbf;
+}
+
+.mat-icon{
+  color: #accbe3;
+
+}
+/*working here right now*/
+:host ::ng-deep .mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 10px;
+  /*--mdc-outlined-text-field-container-background-colour: */
+  border-color: blue !important;
+
+}
+
+:host ::ng-deep .mdc-text-field--filled{
+  background-color: #accbe3;
+}

@@ -9,3 +9,17 @@
 .uuid{
     float: right;
 }
+
+
+h2 {
+  font-size: 35px;
+}
+
+.mat-dialog-container {
+  border-radius: 20px !important;
+}
+
+:host ::ng-deep .mdc-text-field--outlined{
+  --mdc-outlined-text-field-container-shape: 15px;
+
+}
