@@ -29,7 +29,7 @@
 
     <!-- Toggle button as an arrow -->
     <button mat-icon-button class="toggle-button" (click)="collapsed.set(!collapsed())">
-      <mat-icon>{{ !collapsed() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      <mat-icon [ngStyle]="{'color':'#accbe3'}">{{ !collapsed() ? 'chevron_left' : 'chevron_right' }}</mat-icon>
     </button>
   </mat-sidenav>
   <mat-sidenav-content class="content" [style.margin-left]="sideNavWidth()">
@@ -50,10 +50,10 @@
         <editor apiKey="r0gpf34f1r14a97ovjgipjiafq78h23ljobqqcamxru11wpd" [(ngModel)]="oneStep.textAnswer" [init]="init"></editor>
         <app-file-upload>
         </app-file-upload>
-        <!-- attach note to files LOOK AT THIS LATER -->
+        <!-- attach note to files LOOK AT THIS LATER
           <mat-label></mat-label>
           <textarea matInput></textarea>
-        <br />
+        <br /> -->
         <!-- go to next step -->
         <button class="continue" type="submit"> Continue </button>
       </div>
@@ -96,6 +96,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<button mat-button color="primary" (click)="onSave()" type="submit" class="btn btn-primary">Save</button>
+<!--btn btn-primary -->
+
+<button mat-button color="primary" (click)="onSave()" type="submit" class="btn-primary">Save</button>
 
 
