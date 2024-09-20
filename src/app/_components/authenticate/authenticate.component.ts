@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {Router, RouterModule} from '@angular/router';
 import { AuthService } from '../../_services/auth.service';
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-authenticate',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, MatFormField, MatInputModule, MatButtonModule],
+  imports: [CommonModule, RouterModule, FormsModule, MatFormField, MatInputModule, MatButtonModule, NgOptimizedImage],
   templateUrl: './authenticate.component.html',
   styleUrl: './authenticate.component.scss'
 })
@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class AuthenticateComponent {
   username: string = '';
   password: string = '';
+
 
   constructor(protected authService: AuthService, private router: Router) {}
 
