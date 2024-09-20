@@ -61,14 +61,16 @@ mat-sidenav {
 }
 
 .completed-step {
-  background-color: green !important;
-  color: white !important;
+  background-color: white !important;
+  color: black !important;
 }
+
+
 
 .active-step {
   background-color: #D3D3D3;
   font-weight: bold;
-  border-left: 4px solid #3F51B5;
+  border-left: 4px solid #7a9bbf;
   padding-left: 8px;
 }
 
@@ -82,7 +84,7 @@ mat-sidenav {
 }
 
 .continue {
-  background-color: #2196F3;
+  background-color: #7a9bbf;
   color: #fff !important;
   width: 30%;
 }
