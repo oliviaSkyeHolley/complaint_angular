@@ -1,0 +1,27 @@
+.mat-dialog-title{
+  font-size: 35px;
+}
+
+p{
+  font-size: 20px;
+}
+
+:host ::ng-deep .mdc-text-field--outlined{
+  --mdc-outlined-text-field-container-shape: 15px;
+
+}
+
+.createButton:enabled,
+button[enabled]{
+  color: black;
+}
+
+
+.mat-dialog-content {
+  width: 100%;
+}
+
+
+mat-form-field {
+  width: 100%;
+}

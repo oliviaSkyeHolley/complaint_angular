@@ -31,6 +31,7 @@ button{
   border-style: solid;
   border: none;
   font-size: 17px;
+  cursor:pointer;
 }
 
 button:hover {
@@ -38,7 +39,7 @@ button:hover {
   color: white !important;
   transition: 0.7s;
   font-size: 17px;
-
+  cursor:pointer;
 }
 
 hr {
